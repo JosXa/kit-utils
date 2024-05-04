@@ -11,9 +11,13 @@ type CrudMenuConfig<T> = {
 const UPDATE_CHOICES = Symbol.for('update-choices')
 
 export async function crudMenu<T extends string>(prompt: string, config?: Partial<CrudMenuConfig<T>>): Promise<T>
+
+// TODO: The overload with custom `T` is probably a bad idea because getting it right including all kinds of validations is super difficult.
+// Probably better to just stick with a `string` version...
+// DON'T RECOMMEND USING THIS!
 export async function crudMenu<T extends { name: string }>(
   prompt: string,
-  config: { convertUserInput: (userInput: string) => T } & Partial<CrudMenuConfig<T>>,
+  config: { convertUserInput: (userInput: string) => T | Promise<T> } & Partial<CrudMenuConfig<T>>,
 ): Promise<T>
 
 /** Implementation */
@@ -24,7 +28,9 @@ export async function crudMenu<T extends string | { name: string }>(
     dbKey = slugify(prompt, { lower: true, trim: true, remove: /[\.\-:]/g }),
     selectOnAdd = true,
     ...rest
-  }: Partial<CrudMenuConfig<T>> | ({ convertUserInput?: (userInput: string) => T } & Partial<CrudMenuConfig<T>>) = {},
+  }:
+    | Partial<CrudMenuConfig<T>>
+    | ({ convertUserInput?: (userInput: string) => T | Promise<T> } & Partial<CrudMenuConfig<T>>) = {},
 ): Promise<T> {
   const convertUserInput =
     rest && 'convertUserInput' in rest && rest.convertUserInput ? rest.convertUserInput : (x: string) => x as T
@@ -68,7 +74,7 @@ export async function crudMenu<T extends string | { name: string }>(
 
       await resetSidebar()
 
-      entries.push(convertUserInput(await promise))
+      entries.push(await convertUserInput(await promise))
     }
     await write()
   }
@@ -92,7 +98,7 @@ export async function crudMenu<T extends string | { name: string }>(
 
     const edited = await promise
 
-    entries.splice(toEditIdx, 1, convertUserInput(edited))
+    entries.splice(toEditIdx, 1, await convertUserInput(edited))
     await write()
   }
 
@@ -148,7 +154,7 @@ export async function crudMenu<T extends string | { name: string }>(
             pass: true,
             hideWithoutInput: true, // https://github.com/johnlindquist/kit/issues/1468
             async onSubmit(input) {
-              const item = convertUserInput(input)
+              const item = await convertUserInput(input)
               await onAddItem(item)
 
               if (selectOnAdd) {
