@@ -8,7 +8,7 @@ type CrudMenuConfig<T> = {
   selectOnAdd: boolean
 }
 
-const UPDATE_CHOICES = Symbol.for('update-choices')
+const UPDATE_CHOICES: unique symbol = Symbol.for('update-choices')
 
 export async function crudMenu<T extends string>(prompt: string, config?: Partial<CrudMenuConfig<T>>): Promise<T>
 

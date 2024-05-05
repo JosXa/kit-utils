@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "alwaysStrict": true,
+    "noImplicitAny": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@josxa/kit-utils": [
+        "./index.ts"
+      ]
+    }
+  },
+  "include": [
+    "index.ts",
+    "src",
+    "scripts"
+  ]
+}

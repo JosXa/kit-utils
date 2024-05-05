@@ -1,0 +1,12 @@
+{
+  "name": "@josxa/kit-utils",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/JosXa/kit-utils"
+  },
+  "author": {
+    "name": "Joscha Götzer (@JosXa)",
+    "email": "info@josxa.dev",
+    "url": "https://github.com/JosXa"
+  }
+}
