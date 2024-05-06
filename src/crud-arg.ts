@@ -2,7 +2,7 @@ import '@johnlindquist/kit'
 import { Choice } from '@johnlindquist/kit'
 import slugify from 'slugify'
 
-type CrudMenuConfig<T> = {
+type CrudArgConfig<T> = {
   addItemPrompt: string
   dbKey: string
   selectOnAdd: boolean
@@ -10,31 +10,32 @@ type CrudMenuConfig<T> = {
 
 const UPDATE_CHOICES: unique symbol = Symbol.for('update-choices')
 
-export async function crudMenu<T extends string>(prompt: string, config?: Partial<CrudMenuConfig<T>>): Promise<T>
+export async function crudArg<T extends string>(prompt: string, config?: Partial<CrudArgConfig<T>>): Promise<T>
 
 // TODO: The overload with custom `T` is probably a bad idea because getting it right including all kinds of validations is super difficult.
 // Probably better to just stick with a `string` version...
 // DON'T RECOMMEND USING THIS!
-export async function crudMenu<T extends { name: string }>(
+export async function crudArg<T extends { name: string }>(
   prompt: string,
-  config: { convertUserInput: (userInput: string) => T | Promise<T> } & Partial<CrudMenuConfig<T>>,
+  config: { convertUserInput: (userInput: string) => T | Promise<T> } & Partial<CrudArgConfig<T>>,
 ): Promise<T>
 
 /** Implementation */
-export async function crudMenu<T extends string | { name: string }>(
+export async function crudArg<T extends string | { name: string }>(
   prompt: string,
   {
     addItemPrompt = 'Create Item',
-    dbKey = slugify(prompt, { lower: true, trim: true, remove: /[\.\-:]/g }),
+    dbKey = slugify(prompt, { lower: true, trim: true, remove: /[.\-:?]/g, replacement: '_' }),
     selectOnAdd = true,
     ...rest
   }:
-    | Partial<CrudMenuConfig<T>>
-    | ({ convertUserInput?: (userInput: string) => T | Promise<T> } & Partial<CrudMenuConfig<T>>) = {},
+    | Partial<CrudArgConfig<T>>
+    | ({ convertUserInput?: (userInput: string) => T | Promise<T> } & Partial<CrudArgConfig<T>>) = {},
 ): Promise<T> {
   const convertUserInput =
     rest && 'convertUserInput' in rest && rest.convertUserInput ? rest.convertUserInput : (x: string) => x as T
 
+  debugger
   const { entries, write } = await db(dbKey, {
     entries: [] as Array<T>,
   })
@@ -112,7 +113,7 @@ export async function crudMenu<T extends string | { name: string }>(
             {
               name: 'Remove',
               onAction: async (_, state) => {
-                await onRemoveItem(state.focused.value)
+                await onRemoveItem(state!.focused!.value)
                 resolve(UPDATE_CHOICES)
               },
               shortcut: 'ctrl+d',
@@ -121,7 +122,7 @@ export async function crudMenu<T extends string | { name: string }>(
             {
               name: 'Edit',
               onAction: async (_, state) => {
-                await onEditItem(state.focused.value)
+                await onEditItem(state!.focused!.value)
                 resolve(UPDATE_CHOICES)
               },
               shortcut: 'ctrl+e',

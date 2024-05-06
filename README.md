@@ -18,16 +18,16 @@ After installation, run the "Show or Hide Demos" script to get a feel for what's
 
 ## UI Abstractions
 
-### `crudMenu`
+### `crudArg`
 
 A wrapper around `arg` that remembers previous user choices, with actions to **c**reate, **r**ead, **u**pdate, and **d**elete cached entries.
 
 _Example:_
 
 ```ts
-import { crudMenu } from '../kenvs/kit-utils'
+import { crudArg } from '../kenvs/kit-utils'
 
-const city = await crudMenu('Enter a city name')
+const city = await crudArg('Enter a city name')
 
 await div(`You selected: ${city}`)
 ```
