@@ -11,15 +11,9 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
-    "paths": {
-      "@josxa/kit-utils": [
-        "./index.ts"
-      ]
-    }
+    "noEmit": true,
+    "skipLibCheck": true
   },
-  "include": [
-    "index.ts",
-    "src",
-    "scripts"
-  ]
+  "include": ["index.ts", "src/**/*", "scripts/**/*"],
+  "exclude": ["node_modules"]
 }

@@ -3,8 +3,15 @@
 import '@johnlindquist/kit'
 import { Action, Choice, Choices, Panel, PromptConfig } from '@johnlindquist/kit'
 import slugify from 'slugify'
-import { typedObjectValues } from '../lib/typed-stdlib'
+import { typedObjectValues } from './type-utils/typed-stdlib'
 import { refreshable } from './refreshable'
+
+declare global {
+  // noinspection ES6ConvertVarToLetConst
+  var __currentPromptConfig: PromptConfig
+}
+
+const x = typedObjectValues({})
 
 type CacheEntries<T> = {
   items: { [key: string]: { choice: NormalizedChoice<T>; state: 'added' } | { state: 'removed' } }
@@ -51,7 +58,6 @@ class Cache<T> {
     }
 
     typedObjectValues(this.db.items).forEach((value) => {
-      debugger
       if (value.state === 'added') {
         result.push(value.choice)
       }

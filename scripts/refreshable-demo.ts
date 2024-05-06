@@ -14,7 +14,9 @@ await refreshable(async (refresh) => {
       actions: [
         {
           name: 'Refresh',
-          onAction: refresh, // <-- Refresh when this action fires
+          onAction() {
+            refresh()
+          },
           shortcut: 'ctrl+n',
           flag: 'refresh',
           visible: true,

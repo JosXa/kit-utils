@@ -1,6 +1,24 @@
 {
   "name": "@josxa/kit-utils",
   "license": "MIT",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "release": "npm run build && changeset publish",
+    "typecheck": "tsc"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5",
+    "@johnlindquist/kit": "^2.1.16"
+  },
+  "peerDependencies": {
+    "@johnlindquist/kit": "^2.1.16"
+  },
   "repository": {
     "url": "https://github.com/JosXa/kit-utils"
   },
@@ -8,5 +26,10 @@
     "name": "Joscha Götzer (@JosXa)",
     "email": "info@josxa.dev",
     "url": "https://github.com/JosXa"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": "20.11.1",
+    "npm": "10.2.4"
   }
 }
