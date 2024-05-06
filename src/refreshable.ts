@@ -36,21 +36,22 @@ export const FORCE_REFRESH: unique symbol = Symbol.for('force-refresh')
  * @param hint The hint to show while refreshing
  */
 export async function refreshable<T>(
-  prompt: (refresh: () => void) => T | Promise<T>,
+  prompt: (refresh: () => typeof FORCE_REFRESH, resolve: (value: T) => void) => T | Promise<T>,
   hint: string | undefined = 'Refreshing...',
 ): Promise<T> {
   while (true) {
     let userDefinedHint: string | undefined = undefined
 
     const result = await new Promise<T | typeof FORCE_REFRESH>(async (resolve) => {
-      const refresh = () => {
+      const refresh = (): typeof FORCE_REFRESH => {
         hint && setHint(hint)
         setFlagValue(undefined) // Clears the actions sidebar, if any
-        return resolve(FORCE_REFRESH)
+        resolve(FORCE_REFRESH)
+        return FORCE_REFRESH
       }
 
       // Start the prompt without awaiting it
-      const promise = prompt(refresh)
+      const promise = prompt(refresh, resolve)
 
       // Use the chance to grab the user-defined hint
       const promptConfig = global.__currentPromptConfig as PromptConfig
