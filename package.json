@@ -20,7 +20,7 @@
     "@johnlindquist/kit": "^2.1.16"
   },
   "repository": {
-    "url": "https://github.com/JosXa/kit-utils"
+    "url": "git+https://github.com/JosXa/kit-utils.git"
   },
   "author": {
     "name": "Joscha Götzer (@JosXa)",
