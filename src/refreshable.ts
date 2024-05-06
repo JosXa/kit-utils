@@ -26,7 +26,9 @@ export const FORCE_REFRESH: unique symbol = Symbol.for('force-refresh')
  *       name: 'You can get new data using Ctrl+N',
  *       actions: [{
  *         name: 'Refresh',
- *         onAction: refresh, // <-- Refresh when this action fires
+ *         onAction() {
+ *           refresh()
+ *         },
  *         shortcut: 'ctrl+n',
  *         flag: 'refresh',
  *         visible: true

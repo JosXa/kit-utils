@@ -11,7 +11,8 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
-    "noEmit": true
+    "noEmit": true,
+    "skipLibCheck": true
   },
   "include": ["index.ts", "src/**/*", "scripts/**/*"],
   "exclude": ["node_modules"]
