@@ -1,6 +1,11 @@
 import '@johnlindquist/kit'
 import { PromptConfig } from '@johnlindquist/kit'
 
+declare global {
+  // noinspection ES6ConvertVarToLetConst
+  var __currentPromptConfig: PromptConfig
+}
+
 export const FORCE_REFRESH: unique symbol = Symbol.for('force-refresh')
 
 /**
@@ -54,7 +59,7 @@ export async function refreshable<T>(
       const promise = prompt(refresh, resolve)
 
       // Use the chance to grab the user-defined hint
-      const promptConfig = global.__currentPromptConfig as PromptConfig
+      const promptConfig = global.__currentPromptConfig
       userDefinedHint = promptConfig.hint
 
       // Finally await the user's prompt
