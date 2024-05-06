@@ -8,15 +8,17 @@ can reference in your own scripts.
 
 ## Installation
 
-This package can be used as a [kenv](https://gist.github.com/BeSpunky/4595a7a783b74802b8cb5301d91efa55), or be installed 
-via NPM. 
 
-> Which should I choose?
+> [!TIP]
+> This package can be used as a [kenv](https://gist.github.com/BeSpunky/4595a7a783b74802b8cb5301d91efa55), or be installed 
+> via NPM. 
+> 
+> ### Which should I choose?
+> - If you want to run the Demo apps 👉 **Install as kenv**
+> - If you expect to be making occasional changes to the utilities here 👉 **Install as kenv**
+> - If you plan on contributing 👉 **Install as kenv**
+> - Otherwise 👉 **Install from NPM**
 
-- If you want to run the Demo apps 👉 **Install as kenv**
-- If you expect to be making occasional changes to the utilities here 👉 **Install as kenv**
-- If you plan on contributing 👉 **Install as kenv**
-- Otherwise 👉 **Install from NPM**
 
 ### Installing as a kenv
 
