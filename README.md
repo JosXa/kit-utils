@@ -2,7 +2,8 @@
 
 Script Kit environment (kenv) with UI utilities and other scripting goodies.
 
-This repo does not contain any runnable scripts and is meant to be used as a TypeScript library you can reference in your own scripts.
+This repo does not contain any runnable scripts (except some demos) and is meant to be used as a TypeScript library you
+can reference in your own scripts.
 
 ## Installation
 

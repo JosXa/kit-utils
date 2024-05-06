@@ -260,6 +260,7 @@ export class WithCRUD<T extends string> {
         },
         shortcut: this.shortcuts.addItem,
         visible: true,
+        flag: 'add',
       },
       ...this.predefinedActions,
     ])
