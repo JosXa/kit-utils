@@ -11,8 +11,6 @@ declare global {
   var __currentPromptConfig: PromptConfig
 }
 
-const x = typedObjectValues({})
-
 type CacheEntries<T> = {
   items: { [key: string]: { choice: NormalizedChoice<T>; state: "added" } | { state: "removed" } }
 }
@@ -171,7 +169,7 @@ export class WithCRUD<T extends string> {
         slugify(name ?? placeholder ?? "unknown-prompt", {
           lower: true,
           trim: true,
-          remove: /[\.\-:]/g,
+          remove: /[.\-:]/g,
         })
 
       this.db = new Cache<T>(dbKey)
