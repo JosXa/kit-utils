@@ -4,4 +4,8 @@
 import "@johnlindquist/kit"
 import { withCRUDCache } from ".."
 
-await withCRUDCache(() => arg({ name: "Select a city" }, ["Berlin", "Stockholm"]))
+const result = await withCRUDCache(() =>
+  arg({ placeholder: "Select a city (includes your previous answers)" }, ["Berlin", "Stockholm"]),
+)
+
+await div(`You selected: ${result}`)
