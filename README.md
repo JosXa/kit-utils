@@ -41,26 +41,179 @@ After installation as a kenv, run the "Show or Hide Demos" script to get a feel 
 
 ## API
 
-### Prompt Helpers
+### `crudArg` (function)
 
-#### `crudArg`
+**Parameters:**
 
-A wrapper around `arg` that remembers previous user choices, with actions to **c**reate, **r**ead, **u**pdate, and **d**elete cached entries.
+- prompt (`string`) 
+- config (`Partial<CrudArgConfig<T>>`) 
 
-_Example:_
+**returns:** Promise<T>
+
+
+
+### `crudArg` (function)
+
+**Parameters:**
+
+- prompt (`string`) 
+- config (`{ convertUserInput: (userInput: string) => T | Promise<T>; } & Partial<CrudArgConfig<T>>`) 
+
+**returns:** Promise<T>
+
+
+
+### `crudArg` (function)
+
+Implementation
+
+**Parameters:**
+
+- prompt (`string`) 
+- { addItemPrompt = 'Create Item', dbKey = slugify(prompt, { lower: true, trim: true, remove: /[.\-:?]/g, replacement: '_' }), selectOnAdd = true, ...rest } (`Partial<CrudArgConfig<T>> | ({ convertUserInput?: (userInput: string) => T | Promise<T>; } & Partial<CrudArgConfig<T>>)`) 
+
+**returns:** Promise<T>
+
+
+
+### `FORCE_REFRESH` (variable: unique symbol)
+
+
+
+### `refreshable` (function)
+
+**Parameters:**
+
+- prompt (`(refresh: () => unique symbol, resolve: (value: T) => void) => T | Promise<T>`) - An async callback accepting a `refresh` function to execute your prompt
+- hint (`string`) - The hint to show while refreshing
+
+**returns:** Promise<T>
 
 ```ts
-import { crudArg } from '@josxa/kit-utils'
+await refreshable(async (refresh) => {
+  const res = await fetch('http://www.randomnumberapi.com/api/v1.0/random?min=100&max=1000&count=5')
+  const items = await res.json()
 
-const city = await crudArg('Enter a city name')
-
-await div(`You selected: ${city}`)
+  return arg(
+    {
+      name: 'You can get new data using Ctrl+N',
+      actions: [{
+        name: 'Refresh',
+        onAction() {
+          refresh()
+        },
+        shortcut: 'ctrl+n',
+        flag: 'refresh',
+        visible: true
+      }],
+    },
+    items.map((x) => ({ name: x.toString(), value: x })),
+  )
+})
 ```
 
-#### `refreshable`
 
-See [Docstring](https://github.com/JosXa/kit-utils/tree/main/src/refreshable.ts#L6-L37)
 
-_Example:_
+### `typedObjectKeys` (function)
 
-See [Demo](https://github.com/JosXa/kit-utils/tree/main/scripts/refreshable-demo.ts)
+Like Object.keys, but ensures the result matches the literal keys of the passed-in object.
+Normally, Object.keys returns `string[]`.
+
+**Parameters:**
+
+- obj (`T`) 
+
+**returns:** (keyof T)[]
+
+
+
+### `typedObjectEntries` (function)
+
+Like Object.entries, but ensures the result matches the literal keys and values of the passed-in object.
+Normally, Object.entries returns `[string, T][]`.
+
+**Parameters:**
+
+- obj (`T`) 
+
+**returns:** EntriesOf<T>
+
+
+
+### `typedObjectValues` (function)
+
+Like Object.values, but works with any object-like type (even interfaces).
+
+**Parameters:**
+
+- obj (`T`) 
+
+**returns:** T[keyof T][]
+
+
+
+### `typedFromEntries` (function)
+
+Reconstructs an object from an array of [key, value] pairs, ensuring the result matches the literal keys and values
+of the original object type. This is a type-safe version of Object.fromEntries.
+
+**Parameters:**
+
+- entries (`T[]`) 
+
+**returns:** ObjectFromEntries<T[]>
+
+
+
+### `typedMapEntries` (function)
+
+[object Object],[object Object],[object Object]
+
+**Parameters:**
+
+- entries (`readonly T[]`) 
+- mapper (`(kvp: T) => TMapped`) 
+
+**returns:** TMapped[]
+
+
+
+### `mapObjectEntries` (function)
+
+[object Object],[object Object],[object Object]
+
+**Parameters:**
+
+- obj (`T`) 
+- mapper (`([a, b]: KeyValuePairsOf<T>) => TMapped`) 
+
+**returns:** ObjectFromEntries<TMapped[]>
+
+
+
+### `isKey` (function)
+
+[object Object],[object Object],[object Object],[object Object],[object Object]
+
+**Parameters:**
+
+- obj (`T`) 
+- key (`PropertyKey`) 
+
+**returns:** boolean
+
+
+
+### `WithCRUD` (class)
+
+
+
+### `withCRUDCache` (function)
+
+**Parameters:**
+
+- prompt (`() => Promise<T>`) 
+- config (`Partial<CrudMenuConfig<T>>`) 
+
+**returns:** Promise<unknown>
+
