@@ -1,8 +1,5 @@
 {
   "name": "@josxa/kit-utils",
-  "publishConfig": {
-    "access": "public"
-  },
   "license": "MIT",
   "version": "0.6.0",
   "type": "module",
@@ -11,7 +8,7 @@
   "scripts": {
     "build": "tsup",
     "watch": "tsup --watch",
-    "release": "npm run build && changeset publish",
+    "release": "yarn run build && changeset publish",
     "typecheck": "tsc",
     "format:check": "biome check .",
     "format:fix": "biome check . --apply-unsafe"
@@ -40,9 +37,13 @@
     "email": "info@josxa.dev",
     "url": "https://github.com/JosXa"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "engineStrict": true,
   "engines": {
     "node": "20.11.1",
     "npm": "10.2.4"
-  }
+  },
+  "packageManager": "yarn@4.2.1"
 }
