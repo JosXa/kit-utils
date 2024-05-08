@@ -24,7 +24,7 @@ can reference in your own scripts.
 
 1. Open Script Kit
 2. `Manage Kenvs` -> `Clone repo of scripts`
-3. Enter Repo URL: https://github.com/JosXa/kit-utils.git
+3. Enter Repo URL: https://github.com/JosXa/kit-utils (using SSH probably won't work)
 4. Leave the other options as default and accept the risks.
 
 ### Using as an NPM library
