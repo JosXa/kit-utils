@@ -1,0 +1,4 @@
+---
+---
+
+Added error utility

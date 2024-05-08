@@ -10,17 +10,22 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup",
+    "watch": "tsup --watch",
     "release": "npm run build && changeset publish",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "format:fix": "biome check . --apply"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "tsup": "^8.0.2",
     "typescript": "^5.4.5",
-    "@johnlindquist/kit": "^2.1.16"
+    "@johnlindquist/kit": "^2.1.16",
+    "@biomejs/biome": "1.7.3",
+    "axios": "^1.5.1"
   },
   "peerDependencies": {
-    "@johnlindquist/kit": "^2.1.16"
+    "@johnlindquist/kit": "^2.1.16",
+    "axios": ">=1.5.1"
   },
   "repository": {
     "url": "git+https://github.com/JosXa/kit-utils.git"

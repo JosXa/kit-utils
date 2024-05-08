@@ -1,10 +1,10 @@
 // Name: With CRUD Tests
 
-import '@johnlindquist/kit'
-import { Action, Choice, Choices, Panel, PromptConfig } from '@johnlindquist/kit'
-import slugify from 'slugify'
-import { typedObjectValues } from './type-utils/typed-stdlib'
-import { refreshable } from './refreshable'
+import "@johnlindquist/kit"
+import { Action, Choice, Choices, Panel, PromptConfig } from "@johnlindquist/kit"
+import slugify from "slugify"
+import { typedObjectValues } from "./type-utils/typed-stdlib"
+import { refreshable } from "./refreshable"
 
 declare global {
   // noinspection ES6ConvertVarToLetConst
@@ -14,7 +14,7 @@ declare global {
 const x = typedObjectValues({})
 
 type CacheEntries<T> = {
-  items: { [key: string]: { choice: NormalizedChoice<T>; state: 'added' } | { state: 'removed' } }
+  items: { [key: string]: { choice: NormalizedChoice<T>; state: "added" } | { state: "removed" } }
 }
 
 class Cache<T> {
@@ -26,7 +26,7 @@ class Cache<T> {
 
   private get db() {
     if (!this.pendingDb) {
-      throw Error('Must be initialized before use')
+      throw Error("Must be initialized before use")
     }
     return this.pendingDb
   }
@@ -34,7 +34,7 @@ class Cache<T> {
   constructor(private dbKey: string) {}
 
   private _keyOf(item: string | NormalizedChoice<T>) {
-    return typeof item === 'string' ? item : item.name
+    return typeof item === "string" ? item : item.name
   }
 
   public async initialize() {
@@ -58,7 +58,7 @@ class Cache<T> {
     }
 
     typedObjectValues(this.db.items).forEach((value) => {
-      if (value.state === 'added') {
+      if (value.state === "added") {
         result.push(value.choice)
       }
     })
@@ -69,17 +69,17 @@ class Cache<T> {
   public async remove(name: string) {
     const found = this.db.items[name]
 
-    if (found && found.state === 'removed') {
+    if (found && found.state === "removed") {
       console.warn(`Item with name ${name} was already removed!`)
     }
 
-    this.db.items[name] = { state: 'removed' }
+    this.db.items[name] = { state: "removed" }
 
     await this.db.write()
   }
 
   public async add(item: NormalizedChoice<T>) {
-    this.db.items[this._keyOf(item)] = { state: 'added', choice: item }
+    this.db.items[this._keyOf(item)] = { state: "added", choice: item }
 
     await this.db.write()
   }
@@ -87,11 +87,11 @@ class Cache<T> {
   public async rename(oldName: string, updatedChoice: NormalizedChoice<T>) {
     const found = this.db.items[this._keyOf(updatedChoice)]
 
-    if (found && found.state === 'removed') {
+    if (found && found.state === "removed") {
       throw Error(`Item ${updatedChoice.name} is removed and cannot be renamed!`)
     } else {
-      this.db.items[oldName] = { state: 'removed' }
-      this.db.items[this._keyOf(updatedChoice)] = { state: 'added', choice: updatedChoice }
+      this.db.items[oldName] = { state: "removed" }
+      this.db.items[this._keyOf(updatedChoice)] = { state: "added", choice: updatedChoice }
     }
 
     await this.db.write()
@@ -99,18 +99,18 @@ class Cache<T> {
 }
 
 const DEFAULT_CAPTIONS = {
-  addItemPrompt: 'Add Item',
-  addItemAction: 'Add',
-  editItemAction: 'Edit',
-  removeItemAction: 'Remove',
-  editItemHint: 'Edit Item',
+  addItemPrompt: "Add Item",
+  addItemAction: "Add",
+  editItemAction: "Edit",
+  removeItemAction: "Remove",
+  editItemHint: "Edit Item",
 }
 
 // TODO: Maybe `overrides` for the individual thingies would be the better way to go
 
 const DEFAULT_SHORTCUTS = {
-  addItem: 'ctrl+n',
-  removeItem: 'ctrl+d',
+  addItem: "ctrl+n",
+  removeItem: "ctrl+d",
 }
 
 type CrudMenuConfig<T> = {
@@ -123,8 +123,8 @@ type CrudMenuConfig<T> = {
 type NormalizedChoice<T> = Choice<T> & { name: string; value: T }
 
 export class WithCRUD<T extends string> {
-  private captions: CrudMenuConfig<T>['captions']
-  private shortcuts: CrudMenuConfig<T>['shortcuts']
+  private captions: CrudMenuConfig<T>["captions"]
+  private shortcuts: CrudMenuConfig<T>["shortcuts"]
   private selectOnAdd: boolean
   private dbKey?: string
   private db?: Cache<T>
@@ -144,7 +144,7 @@ export class WithCRUD<T extends string> {
 
   private get cache() {
     if (!this.db) {
-      throw Error('DB is not initialized')
+      throw Error("DB is not initialized")
     }
     return this.db
   }
@@ -160,15 +160,15 @@ export class WithCRUD<T extends string> {
     // this.placeholder = currentConfig.
 
     // Sanity check
-    if (this.predefinedChoices.some((x) => Object.values(x).some((field) => typeof field === 'function'))) {
-      console.warn('Please do not use unserializable values in choices. These entries will not be cached correctly.')
+    if (this.predefinedChoices.some((x) => Object.values(x).some((field) => typeof field === "function"))) {
+      console.warn("Please do not use unserializable values in choices. These entries will not be cached correctly.")
     }
 
     if (!this.db) {
       // Initialize Database
       const dbKey =
         this.dbKey ??
-        slugify(name ?? placeholder ?? 'unknown-prompt', {
+        slugify(name ?? placeholder ?? "unknown-prompt", {
           lower: true,
           trim: true,
           remove: /[\.\-:]/g,
@@ -238,7 +238,7 @@ export class WithCRUD<T extends string> {
                   await this.onEditItem(state!.focused as NormalizedChoice<T>)
                   forceReload()
                 },
-                shortcut: 'ctrl+e',
+                shortcut: "ctrl+e",
                 visible: true,
               },
               ...(actions ?? []),
@@ -266,7 +266,7 @@ export class WithCRUD<T extends string> {
         },
         shortcut: this.shortcuts.addItem,
         visible: true,
-        flag: 'add',
+        flag: "add",
       },
       ...this.predefinedActions,
     ])
@@ -277,7 +277,7 @@ export class WithCRUD<T extends string> {
       this.cache
         .getChoices(this.predefinedChoices)
         .map((x) => `- ${x.name}`)
-        .join('\n'),
+        .join("\n"),
     )
   }
 
@@ -320,7 +320,7 @@ export class WithCRUD<T extends string> {
 
   private normalizeChoice(choice: T | Choice<T>): NormalizedChoice<T> {
     // @ts-expect-error No sanity check here yet, we just assume...
-    if (typeof choice === 'object') return choice
+    if (typeof choice === "object") return choice
 
     return { name: choice, value: choice }
   }
@@ -333,7 +333,7 @@ export class WithCRUD<T extends string> {
     }
 
     return choices.map((c) => {
-      if (typeof c === 'object') {
+      if (typeof c === "object") {
         return { ...c, value: c.value ?? c.name }
       }
       return { name: c, value: c }

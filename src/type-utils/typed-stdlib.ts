@@ -17,26 +17,26 @@
  * Licensed under MIT: https://gist.github.com/JosXa/d5bfe624b35c8b905029a614d68b3c06
  */
 
-type KeyValuePair = [PropertyKey, unknown];
+type KeyValuePair = [PropertyKey, unknown]
 
 type KeyValuePairsOf<T> = {
-  [K in keyof T]: [K, T[K]];
-}[keyof T];
+  [K in keyof T]: [K, T[K]]
+}[keyof T]
 
 type EntriesOf<T> = {
-  [K in keyof T]: [K, T[K]];
-}[keyof T][];
+  [K in keyof T]: [K, T[K]]
+}[keyof T][]
 
 type ObjectFromEntries<T> = T extends readonly [infer Key extends PropertyKey, infer Value][]
   ? { [key in Key]: Value }
-  : never;
+  : never
 
 /**
  * Like Object.keys, but ensures the result matches the literal keys of the passed-in object.
  * Normally, Object.keys returns `string[]`.
  */
 export function typedObjectKeys<const T extends object>(obj: T): (keyof typeof obj)[] {
-  return Object.keys(obj) as (keyof typeof obj)[];
+  return Object.keys(obj) as (keyof typeof obj)[]
 }
 
 /**
@@ -44,14 +44,14 @@ export function typedObjectKeys<const T extends object>(obj: T): (keyof typeof o
  * Normally, Object.entries returns `[string, T][]`.
  */
 export function typedObjectEntries<const T extends object>(obj: T): EntriesOf<T> {
-  return Object.entries(obj) as EntriesOf<T>;
+  return Object.entries(obj) as EntriesOf<T>
 }
 
 /**
  * Like Object.values, but works with any object-like type (even interfaces).
  */
 export function typedObjectValues<const T extends object>(obj: T): Array<T[keyof T]> {
-  return Object.values(obj) as Array<T[keyof T]>;
+  return Object.values(obj) as Array<T[keyof T]>
 }
 
 /**
@@ -59,7 +59,7 @@ export function typedObjectValues<const T extends object>(obj: T): Array<T[keyof
  * of the original object type. This is a type-safe version of Object.fromEntries.
  */
 export function typedFromEntries<const T extends KeyValuePair>(entries: T[]): ObjectFromEntries<T[]> {
-  return Object.fromEntries(entries) as ObjectFromEntries<T[]>;
+  return Object.fromEntries(entries) as ObjectFromEntries<T[]>
 }
 
 /**
@@ -70,7 +70,7 @@ export function typedMapEntries<const T extends KeyValuePair, const TMapped exte
   entries: readonly T[],
   mapper: (kvp: T) => TMapped,
 ): TMapped[] {
-  return entries.map(mapper);
+  return entries.map(mapper)
 }
 
 /**
@@ -82,7 +82,7 @@ export function mapObjectEntries<const T extends object, const TMapped extends K
   mapper: ([a, b]: KeyValuePairsOf<T>) => TMapped,
 ): ObjectFromEntries<TMapped[]> {
   //@ts-expect-error Already properly typed through the signature
-  return Object.fromEntries(Object.entries(obj).map(mapper));
+  return Object.fromEntries(Object.entries(obj).map(mapper))
 
   // Equivalent to:
   // return typedFromEntries(typedMapEntries(typedObjectEntries(obj), mapper));
@@ -95,5 +95,5 @@ export function mapObjectEntries<const T extends object, const TMapped extends K
  * is safe.
  */
 export function isKey<const T extends object>(obj: T, key: PropertyKey): key is keyof T {
-  return key in obj;
+  return key in obj
 }

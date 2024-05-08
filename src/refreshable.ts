@@ -1,17 +1,17 @@
-import '@johnlindquist/kit'
-import { PromptConfig } from '@johnlindquist/kit'
+import "@johnlindquist/kit"
+import { PromptConfig } from "@johnlindquist/kit"
 
 declare global {
   // noinspection ES6ConvertVarToLetConst
   var __currentPromptConfig: PromptConfig
 }
 
-export const FORCE_REFRESH: unique symbol = Symbol.for('force-refresh')
+export const FORCE_REFRESH: unique symbol = Symbol.for("force-refresh")
 
 /**
- * Repeats the given {@link prompt} callback when its `refresh` argument is called.
+ * @summary Repeats the given {@link prompt} callback when its `refresh` argument is called.
  *
- * This is useful when you have actions on your prompt that require you to reload the available choices, such as
+ * @hint This is useful when you have actions on your prompt that require you to reload the available choices, such as
  * deleting a choice, reloading the choices from some source, or in any other circumstances where reloading the
  * prompt is necessary.
  *
@@ -44,7 +44,7 @@ export const FORCE_REFRESH: unique symbol = Symbol.for('force-refresh')
  */
 export async function refreshable<T>(
   prompt: (refresh: () => typeof FORCE_REFRESH, resolve: (value: T) => void) => T | Promise<T>,
-  hint: string | undefined = 'Refreshing...',
+  hint: string | undefined = "Refreshing...",
 ): Promise<T> {
   while (true) {
     let userDefinedHint: string | undefined = undefined
@@ -69,7 +69,7 @@ export async function refreshable<T>(
     })
 
     if (result === FORCE_REFRESH) {
-      hint && setHint(userDefinedHint ?? '')
+      hint && setHint(userDefinedHint ?? "")
       continue
     }
 

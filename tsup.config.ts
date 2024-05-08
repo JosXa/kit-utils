@@ -1,13 +1,13 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { defineConfig } from 'tsup'
+import { defineConfig } from "tsup"
 
 export default defineConfig({
-  entry: ['index.ts'],
+  entry: ["index.ts"],
   splitting: false,
   sourcemap: true,
   clean: true,
-  format: 'esm',
+  format: "esm",
   dts: true,
-  platform: 'node',
+  platform: "node",
 })
