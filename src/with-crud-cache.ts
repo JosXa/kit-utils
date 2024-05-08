@@ -3,7 +3,7 @@
 import "@johnlindquist/kit"
 import { Action, Choice, Choices, Panel, PromptConfig } from "@johnlindquist/kit"
 import slugify from "slugify"
-import { typedObjectValues } from "./type-utils/typed-stdlib"
+import { typedObjectValues } from "./helpers/typed-stdlib"
 import { refreshable } from "./refreshable"
 
 declare global {
