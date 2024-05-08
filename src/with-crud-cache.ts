@@ -125,8 +125,8 @@ type NormalizedChoice<T> = Choice<T> & { name: string; value: T }
 export class WithCRUD<T extends string> {
   private captions: CrudMenuConfig<T>["captions"]
   private shortcuts: CrudMenuConfig<T>["shortcuts"]
-  private selectOnAdd: boolean
-  private dbKey?: string
+  private readonly selectOnAdd: boolean
+  private readonly dbKey?: string
   private db?: Cache<T>
 
   private predefinedActions: Action[] = []
