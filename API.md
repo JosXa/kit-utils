@@ -45,6 +45,15 @@
     {
       description: null,
       jsDocTags: null,
+      name: 'error',
+      parameters: [Array],
+      returnType: [Object],
+      type: 'function',
+      typeParameters: []
+    },
+    {
+      description: null,
+      jsDocTags: null,
       name: 'FORCE_REFRESH',
       parameters: null,
       returnType: null,
@@ -121,6 +130,19 @@ Promise<T>
     addItem: string;
     removeItem: string;
 }`)
+
+# error(err [, title])
+
+***Parameters***
+
+- **`err`** (`any`)
+- **`title`** (`string`) – *Optional.*
+
+***Return type***
+
+```
+Promise<void>
+```
 
 # FORCE_REFRESH
 

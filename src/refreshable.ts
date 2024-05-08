@@ -9,9 +9,9 @@ declare global {
 export const FORCE_REFRESH: unique symbol = Symbol.for("force-refresh")
 
 /**
- * @summary Repeats the given {@link prompt} callback when its `refresh` argument is called.
+ * @description Repeats the given {@link prompt} callback when its `refresh` argument is called.
  *
- * @hint This is useful when you have actions on your prompt that require you to reload the available choices, such as
+ * This is useful when you have actions on your prompt that require you to reload the available choices, such as
  * deleting a choice, reloading the choices from some source, or in any other circumstances where reloading the
  * prompt is necessary.
  *
