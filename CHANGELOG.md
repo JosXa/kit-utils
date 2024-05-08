@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 0.2.0
+
+### Minor Changes
+
+- 6190d5c: Improved distribution
+
 ## 0.1.0
 
 ### Minor Changes
