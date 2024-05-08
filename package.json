@@ -13,7 +13,7 @@
     "watch": "tsup --watch",
     "release": "npm run build && changeset publish",
     "typecheck": "tsc",
-    "format:fix": "biome check . --apply"
+    "format:fix": "biome check . --apply-unsafe"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",

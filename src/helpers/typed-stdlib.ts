@@ -28,7 +28,7 @@ type EntriesOf<T> = {
 }[keyof T][]
 
 type ObjectFromEntries<T> = T extends readonly [infer Key extends PropertyKey, infer Value][]
-  ? { [key in Key]: Value }
+  ? { [K in Key]: Value }
   : never
 
 /**
@@ -50,8 +50,8 @@ export function typedObjectEntries<const T extends object>(obj: T): EntriesOf<T>
 /**
  * Like Object.values, but works with any object-like type (even interfaces).
  */
-export function typedObjectValues<const T extends object>(obj: T): Array<T[keyof T]> {
-  return Object.values(obj) as Array<T[keyof T]>
+export function typedObjectValues<const T extends object>(obj: T): T[keyof T][] {
+  return Object.values(obj) as T[keyof T][]
 }
 
 /**

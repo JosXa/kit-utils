@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "removeComments": false,
     "useUnknownInCatchVariables": true,
-    "noEmit": false
+    "noEmit": true
   },
   "include": ["index.ts", "src/**/*", "scripts/**/*"],
   "exclude": ["node_modules"]

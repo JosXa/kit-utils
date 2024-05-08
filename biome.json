@@ -7,15 +7,28 @@
     "defaultBranch": "main"
   },
   "organizeImports": {
-    "enabled": false
+    "enabled": true
   },
   "linter": {
-    "enabled": false,
+    "enabled": true,
     "rules": {
-      "recommended": true,
+      "all": true,
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "off",
+        "noForEach": "off"
+      },
+      "correctness": {
+        "noUndeclaredVariables": "off",
+        "noConstantCondition": "off"
+      },
       "style": {
-        "useImportType": "error",
-        "useExportType": "error"
+        "noDefaultExport": "off",
+        "noParameterAssign": "off",
+        "useNamingConvention": "off",
+        "noParameterProperties": "off"
+      },
+      "suspicious": {
+        "noEmptyBlockStatements": "off"
       }
     }
   },
@@ -25,7 +38,6 @@
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 120,
-    "lineEnding": "lf",
     "ignore": [".cache", ".history", ".npm-cache", "node_modules", ".vscode"]
   },
   "javascript": {

@@ -3,7 +3,7 @@ import "@johnlindquist/kit"
 import { isAxiosError } from "axios"
 import isError from "./helpers/isError"
 
-export async function error(err: any, title?: string): Promise<void> {
+export async function error(err: unknown, title?: string): Promise<void> {
   const msg = [] as string[]
 
   title && msg.push(`## ${title}`)
@@ -19,7 +19,6 @@ export async function error(err: any, title?: string): Promise<void> {
         msg.push(`${err.response.status}: ${err.response.statusText}<br>`)
         msg.push(`${err.response.data}<br>`)
       }
-    } else {
     }
 
     if (err.stack) {
@@ -32,10 +31,10 @@ export async function error(err: any, title?: string): Promise<void> {
         const [_, ...stackParts] = err.stack.split("\n")
         stack = stackParts.join("\n")
       }
-      msg.push("```\n" + stack + "\n```")
+      msg.push(`\`\`\`\n${stack}\n\`\`\``)
     }
   } else {
-    !title && msg.push(`## Something bad happened`)
+    !title && msg.push("## Something bad happened")
     msg.push(`\`\`\`${typeof err === "object" ? JSON.stringify(err) : err}\`\`\``)
   }
 

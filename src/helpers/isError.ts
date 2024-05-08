@@ -2,13 +2,14 @@ const objectToString = Object.prototype.toString
 const getPrototypeOf = Object.getPrototypeOf
 const ERROR_TYPE = "[object Error]" as const
 
-export default function isError(err: any): err is Error {
+export default function isError(err: unknown): err is Error {
   if (typeof err !== "object") {
     return false
   }
   if (err instanceof Error) {
     return true
   }
+
   while (err) {
     if (objectToString.call(err) === ERROR_TYPE) {
       return true

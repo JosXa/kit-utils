@@ -1,17 +1,17 @@
 import "@johnlindquist/kit"
-import { PromptConfig } from "@johnlindquist/kit"
+import type { PromptConfig } from "@johnlindquist/kit"
 
 declare global {
-  // noinspection ES6ConvertVarToLetConst
+  // noinspection ES6ConvertVarToLetConst,JSUnusedGlobalSymbols
   var __currentPromptConfig: PromptConfig
 }
 
 export const FORCE_REFRESH: unique symbol = Symbol.for("force-refresh")
 
 /**
- * @summary Repeats the given {@link prompt} callback when its `refresh` argument is called.
+ * Repeats the given {@link prompt} callback when its `refresh` argument is called.
  *
- * @hint This is useful when you have actions on your prompt that require you to reload the available choices, such as
+ * This is useful when you have actions on your prompt that require you to reload the available choices, such as
  * deleting a choice, reloading the choices from some source, or in any other circumstances where reloading the
  * prompt is necessary.
  *
@@ -49,23 +49,28 @@ export async function refreshable<T>(
   while (true) {
     let userDefinedHint: string | undefined = undefined
 
-    const result = await new Promise<T | typeof FORCE_REFRESH>(async (resolve) => {
-      const refresh = (): typeof FORCE_REFRESH => {
-        hint && setHint(hint)
-        setFlagValue(undefined) // Clears the actions sidebar, if any
-        resolve(FORCE_REFRESH)
-        return FORCE_REFRESH
+    // biome-ignore lint/suspicious/noAsyncPromiseExecutor: Wrapped in try/catch and reject(err)
+    const result = await new Promise<T | typeof FORCE_REFRESH>(async (resolve, reject) => {
+      try {
+        const refresh = (): typeof FORCE_REFRESH => {
+          hint && setHint(hint)
+          setFlagValue(undefined) // Clears the actions sidebar, if any
+          resolve(FORCE_REFRESH)
+          return FORCE_REFRESH
+        }
+
+        // Start the prompt without awaiting it
+        const promise = prompt(refresh, resolve)
+
+        // Use the chance to grab the user-defined hint
+        const promptConfig = global.__currentPromptConfig
+        userDefinedHint = promptConfig.hint
+
+        // Finally await the user's prompt
+        resolve(await promise)
+      } catch (err) {
+        reject(err)
       }
-
-      // Start the prompt without awaiting it
-      const promise = prompt(refresh, resolve)
-
-      // Use the chance to grab the user-defined hint
-      const promptConfig = global.__currentPromptConfig
-      userDefinedHint = promptConfig.hint
-
-      // Finally await the user's prompt
-      resolve(await promise)
     })
 
     if (result === FORCE_REFRESH) {

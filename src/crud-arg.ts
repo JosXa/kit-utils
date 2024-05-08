@@ -1,8 +1,8 @@
 import "@johnlindquist/kit"
-import { Choice } from "@johnlindquist/kit"
+import type { Choice } from "@johnlindquist/kit"
 import slugify from "slugify"
 
-type CrudArgConfig<T> = {
+type CrudArgConfig<_T> = {
   addItemPrompt: string
   dbKey: string
   selectOnAdd: boolean
@@ -34,10 +34,8 @@ export async function crudArg<T extends string | { name: string }>(
 ): Promise<T> {
   const convertUserInput =
     rest && "convertUserInput" in rest && rest.convertUserInput ? rest.convertUserInput : (x: string) => x as T
-
-  debugger
   const { entries, write } = await db(dbKey, {
-    entries: [] as Array<T>,
+    entries: [] as T[],
   })
 
   const formatEntriesAsPanel = () =>
@@ -95,7 +93,7 @@ export async function crudArg<T extends string | { name: string }>(
     await resetSidebar()
 
     const promise = arg<string>({ hint: "Edit item" })
-    setInput(typeof item === "string" ? item : item.name)
+    setInput(typeof item === "string" ? item : item.name).then()
 
     const edited = await promise
 
@@ -104,73 +102,79 @@ export async function crudArg<T extends string | { name: string }>(
   }
 
   while (true) {
-    const promiseResult = await new Promise<T | typeof UPDATE_CHOICES>(async (resolve) => {
-      const choices = entries.map((x) => {
-        return {
-          name: typeof x === "string" ? x : x.name,
-          value: x,
-          actions: [
-            {
-              name: "Remove",
-              onAction: async (_, state) => {
-                await onRemoveItem(state!.focused!.value)
-                resolve(UPDATE_CHOICES)
-              },
-              shortcut: "ctrl+d",
-              visible: true,
-            },
-            {
-              name: "Edit",
-              onAction: async (_, state) => {
-                await onEditItem(state!.focused!.value)
-                resolve(UPDATE_CHOICES)
-              },
-              shortcut: "ctrl+e",
-              visible: true,
-            },
-          ],
-        } as Choice<T>
-      })
+    // biome-ignore lint/suspicious/noAsyncPromiseExecutor: Wrapped in try/catch and reject(err)
+    const promiseResult = await new Promise<T | typeof UPDATE_CHOICES>(async (resolve, reject) => {
+      try {
+        const choices = entries.map(
+          (x) =>
+            ({
+              name: typeof x === "string" ? x : x.name,
+              value: x,
+              actions: [
+                {
+                  name: "Remove",
+                  onAction: async (_, state) => {
+                    await onRemoveItem(state?.focused?.value)
+                    resolve(UPDATE_CHOICES)
+                  },
+                  shortcut: "ctrl+d",
+                  visible: true,
+                },
+                {
+                  name: "Edit",
+                  onAction: async (_, state) => {
+                    await onEditItem(state?.focused?.value)
+                    resolve(UPDATE_CHOICES)
+                  },
+                  shortcut: "ctrl+e",
+                  visible: true,
+                },
+              ],
+            }) as Choice<T>,
+        )
 
-      const selection = await arg<T>(
-        {
-          placeholder: prompt,
-          actions: [
-            {
-              name: "Add",
-              onAction: async () => {
-                await onAddItem()
-                resolve(UPDATE_CHOICES)
-              },
-              shortcut: "ctrl+n",
-              visible: true,
-            },
-          ],
-        },
-
-        [
+        const selection = await arg<T>(
           {
-            name: addItemPrompt,
-            miss: true,
-            pass: true,
-            hideWithoutInput: true, // https://github.com/johnlindquist/kit/issues/1468
-            async onSubmit(input) {
-              const item = await convertUserInput(input)
-              await onAddItem(item)
-
-              if (selectOnAdd) {
-                resolve(item)
-              } else {
-                resolve(UPDATE_CHOICES)
-                return preventSubmit
-              }
-            },
+            placeholder: prompt,
+            actions: [
+              {
+                name: "Add",
+                onAction: async () => {
+                  await onAddItem()
+                  resolve(UPDATE_CHOICES)
+                },
+                shortcut: "ctrl+n",
+                visible: true,
+              },
+            ],
           },
-          ...choices,
-        ],
-      )
 
-      resolve(selection)
+          [
+            {
+              name: addItemPrompt,
+              miss: true,
+              pass: true,
+              hideWithoutInput: true, // https://github.com/johnlindquist/kit/issues/1468
+              async onSubmit(input) {
+                const item = await convertUserInput(input)
+                await onAddItem(item)
+
+                if (selectOnAdd) {
+                  resolve(item)
+                } else {
+                  resolve(UPDATE_CHOICES)
+                  return preventSubmit
+                }
+              },
+            },
+            ...choices,
+          ],
+        )
+
+        resolve(selection)
+      } catch (err) {
+        reject(err)
+      }
     })
 
     if (promiseResult === UPDATE_CHOICES) {

@@ -1,13 +1,13 @@
 // Name: With CRUD Tests
 
 import "@johnlindquist/kit"
-import { Action, Choice, Choices, Panel, PromptConfig } from "@johnlindquist/kit"
+import type { Action, Choice, Choices, Panel, PromptConfig } from "@johnlindquist/kit"
 import slugify from "slugify"
 import { typedObjectValues } from "./helpers/typed-stdlib"
 import { refreshable } from "./refreshable"
 
 declare global {
-  // noinspection ES6ConvertVarToLetConst
+  // noinspection ES6ConvertVarToLetConst,JSUnusedGlobalSymbols
   var __currentPromptConfig: PromptConfig
 }
 
@@ -19,6 +19,7 @@ class Cache<T> {
   private pendingDb?: {
     write: () => Promise<void>
     read: () => Promise<CacheEntries<T>>
+    // biome-ignore lint/suspicious/noExplicitAny: Type comes from kit. Not sure how to do the type gymnastics to use ReturnType<db>
     data: any
   } & CacheEntries<T>
 
@@ -87,10 +88,10 @@ class Cache<T> {
 
     if (found && found.state === "removed") {
       throw Error(`Item ${updatedChoice.name} is removed and cannot be renamed!`)
-    } else {
-      this.db.items[oldName] = { state: "removed" }
-      this.db.items[this._keyOf(updatedChoice)] = { state: "added", choice: updatedChoice }
     }
+
+    this.db.items[oldName] = { state: "removed" }
+    this.db.items[this._keyOf(updatedChoice)] = { state: "added", choice: updatedChoice }
 
     await this.db.write()
   }
@@ -111,7 +112,7 @@ const DEFAULT_SHORTCUTS = {
   removeItem: "ctrl+d",
 }
 
-type CrudMenuConfig<T> = {
+type CrudMenuConfig<_T> = {
   dbKey: string
   selectOnAdd: boolean
   captions: typeof DEFAULT_CAPTIONS
@@ -190,17 +191,16 @@ export class WithCRUD<T extends string> {
     })
   }
 
-  private async mutateChoices(forceReload: () => unknown, resolve: (value: T) => void): Promise<T | void> {
+  private async mutateChoices(forceReload: () => unknown, _resolve: (value: T) => void): Promise<T | undefined> {
     const onSubmitAddItemChoice = async (input: string) => {
       const item = this.createChoiceFromInput(input)
       await this.onAddItem(item)
 
       if (this.selectOnAdd) {
         return item.value
-      } else {
-        forceReload()
-        return preventSubmit
       }
+      forceReload()
+      return preventSubmit
     }
     onSubmitAddItemChoice.bind(this)
 
@@ -215,7 +215,7 @@ export class WithCRUD<T extends string> {
       ...this.cache.getChoices(this.predefinedChoices),
     ] as Array<NormalizedChoice<T> | Choice>
 
-    setChoices(
+    await setChoices(
       choices.map(
         ({ actions, ...rest }) =>
           ({
@@ -224,8 +224,10 @@ export class WithCRUD<T extends string> {
               {
                 name: this.captions.removeItemAction,
                 onAction: async (_, state) => {
-                  await this.onRemoveItem(state!.focused!.name)
-                  forceReload()
+                  if (state?.focused?.name) {
+                    await this.onRemoveItem(state.focused.name)
+                    forceReload()
+                  }
                 },
                 shortcut: this.shortcuts.removeItem,
                 visible: true,
@@ -233,7 +235,7 @@ export class WithCRUD<T extends string> {
               {
                 name: this.captions.editItemAction,
                 onAction: async (_, state) => {
-                  await this.onEditItem(state!.focused as NormalizedChoice<T>)
+                  await this.onEditItem(state?.focused as NormalizedChoice<T>)
                   forceReload()
                 },
                 shortcut: "ctrl+e",
@@ -244,6 +246,7 @@ export class WithCRUD<T extends string> {
           }) satisfies Choice<T>,
       ),
     )
+    return undefined
   }
 
   private async mutateActions(refresh: () => unknown): Promise<void> {
@@ -317,16 +320,18 @@ export class WithCRUD<T extends string> {
   }
 
   private normalizeChoice(choice: T | Choice<T>): NormalizedChoice<T> {
-    // @ts-expect-error No sanity check here yet, we just assume...
-    if (typeof choice === "object") return choice
+    if (typeof choice === "object") {
+      // @ts-expect-error No sanity check here yet, we just assume...
+      return choice
+    }
 
     return { name: choice, value: choice }
   }
 
-  private normalizeChoices(choices?: Panel | Choices<any>): Array<NormalizedChoice<T>> {
+  private normalizeChoices(choices?: Panel | Choices<unknown>): NormalizedChoice<T>[] {
     // TODO: Account for choice generator functions
 
-    if (!choices || !Array.isArray(choices)) {
+    if (!(choices && Array.isArray(choices))) {
       return []
     }
 
