@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 0.6.0
+
+### Minor Changes
+
+- 9b9f973: Allow any version of Kit
+
 ## 0.5.0
 
 ### Minor Changes
