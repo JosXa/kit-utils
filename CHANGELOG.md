@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 0.5.0
+
+### Minor Changes
+
+- c1f780e: Update package
+
 ## 0.4.0
 
 ### Minor Changes
