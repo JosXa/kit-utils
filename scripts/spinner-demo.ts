@@ -15,30 +15,33 @@ await refreshable(async ({ refresh, signal }) => {
   const spinner = startSpinner(
     variant,
     { position: "center" },
-
     {
       onSubmit() {
         spinner.stop()
         refresh()
         return preventSubmit
       },
-      width: 500,
+      width: 400,
+      
     },
   )
 
-  spinner.message = "Working..."
+  spinner.message = "Preparing..."
 
-  await wait(2000)
+  
+  for (let i = 0; i <= 20; i++) {
+    await wait(150)
+    if (signal.aborted) {
+      spinner.stop()
+      return
+    }
+    spinner.progress = i * 5
 
-  // for (let i = 0; i <= 20; i++) {
-  //   await wait(150)
-  //   if (signal.aborted) {
-  //     spinner.stop()
-  //     return
-  //   }
-  //   spinner.progress = i * 5
-  // }
-  //
-  // spinner.stop()
-  // refresh()
+    if (i % 5 === 0) {
+      spinner.message = `Working on step ${(i / 5) + 1} / 4`
+    }
+  }
+
+  spinner.stop()
+  refresh()
 })

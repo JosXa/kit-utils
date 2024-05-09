@@ -14,7 +14,8 @@ type SpinnerOptions<T extends SpinnerVariant> = {
   position?: "left" | "center" | "right"
   initialMessage?: string
 } & Parameters<(typeof SPINNER_VARIANTS)[T]>[0]
-type DivOptions = Omit<DivConfig, "html" | "css">
+
+type DivOptions = Omit<DivConfig, 'html'> & {html?: string}
 
 type Percent = number
 
@@ -29,12 +30,14 @@ export function startSpinner<T extends SpinnerVariant>(
   spinnerOptions: SpinnerOptions<T> = {},
   divOptions: DivOptions = {},
 ): SpinnerControls {
+  const {html: userHtml, css: userCSS, ...userDivOptions} = divOptions;
+
   const { position = "center", initialMessage, ...variantOptions } = spinnerOptions
 
   let message = initialMessage
   let progress: null | Percent = null
 
-  const { html, css } = SPINNER_VARIANTS[variant](variantOptions)
+  const { html: spinnerHtml, css: spinnerCss } = SPINNER_VARIANTS[variant](variantOptions)
 
   const alignment = (() => {
     switch (position) {
@@ -47,30 +50,52 @@ export function startSpinner<T extends SpinnerVariant>(
     }
   })()
 
-  div({
-    html: `<div class='container'>${html.trim()}</div>`,
-    css: `${css.trim()}
+  const buildHtml = () => {
+    const elements = [`<div>${spinnerHtml.trim()}</div>`]
+
+    if (userHtml) {
+      elements.push(userHtml)
+    }
+
+    return `<div class="container">${elements.join('\n')}</div>`
+  }
+
+  const divArgs: DivConfig = {
+    html: buildHtml(),
+    css: `${spinnerCss.trim()}
 .container { 
   display: flex;
+  flex-direction: column;
   justify-content: ${alignment};
   place-items: ${alignment}; 
-  align-content: ${alignment};
   padding: 1.5em;
-}`,
-    ...divOptions,
-  })
+  padding-bottom: 1em;
+}
 
-  const updateProgressInfo = () => {
-    const parts: string[] = []
-    if (progress !== null) {
-      parts.push(`${progress}%`)
-    }
-    if (message) {
-      parts.push(message)
-    }
+/* Best way I found to target the footer text's container where we show progress */
+/* 2.9.x */
+slot>div:has(.truncate) {
+  justify-content: center;
+}
 
-    setFooter(parts.join(" — "))
+/* 2.3.x */
+#footer>div>div:has(.truncate) {
+  justify-content: center !important;
+}
+
+${userCSS ?? ''}`,
+    ignoreBlur: true,
+    ...userDivOptions,
   }
+
+  div(divArgs)
+
+  const updateProgressInfo = () =>
+    queueMicrotask(() => {
+      setPanel(buildHtml())
+      message && setName(message)
+      progress !== null && setFooter(`${progress}%`)
+    })
 
   return {
     set progress(value: Percent) {

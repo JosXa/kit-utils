@@ -7,7 +7,7 @@ export type SpinnerVariant<TProps extends object> = (args?: TProps) => {
 
 const DEFAULT_SIZE = 50
 
-export const dots: SpinnerVariant<{ color?: string; size?: number }> = ({ color = "#fff" } = {}) => ({
+export const dots: SpinnerVariant<{ color?: string }> = ({ color = "#fff" } = {}) => ({
   html: `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`,
   css: `
 .lds-ellipsis {
@@ -21,11 +21,10 @@ export const dots: SpinnerVariant<{ color?: string; size?: number }> = ({ color 
   display: inline-block;
   position: relative;
   width: 80px;
-  height: 80px;
+  height: 20px;
 }
 .lds-ellipsis div {
   position: absolute;
-  top: 33.33333px;
   width: 13.33333px;
   height: 13.33333px;
   border-radius: 50%;
@@ -80,7 +79,7 @@ export const spaceX: SpinnerVariant<{ colorX?: string; colorY?: string; size?: n
   colorY = "#FF3D00",
   size = DEFAULT_SIZE,
 } = {}) => ({
-  html: `<span class="loader"></span>`,
+  html: `<div class="loader"></div>`,
   css: `
 .loader {
   transform: rotateZ(45deg);
@@ -160,7 +159,7 @@ export const circle: SpinnerVariant<{ color?: string; dotSize?: number; size?: n
   color = "#fff",
   size = DEFAULT_SIZE,
 } = {}) => ({
-  html: `<span class="loader"></span>`,
+  html: `<div class="loader"></div>`,
   css: `
 .loader {
   width: ${Math.max(0, size - 10)}px;
