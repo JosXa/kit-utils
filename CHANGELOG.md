@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 0.3.0
+
+### Minor Changes
+
+- 93edc00: Add spinner utility
+
 ## 0.2.1
 
 ### Patch Changes
