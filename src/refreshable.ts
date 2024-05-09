@@ -39,28 +39,35 @@ export const FORCE_REFRESH: unique symbol = Symbol.for("force-refresh")
  * })
  * ```
  *
- * @param prompt An async callback accepting a `refresh` function to execute your prompt
- * @param hint The hint to show while refreshing
+ * @param prompt A callback accepting loop control functions and an abort signal
+ * @param refreshHint The hint to show while refreshing
  */
 export async function refreshable<T>(
-  prompt: (refresh: () => typeof FORCE_REFRESH, resolve: (value: T) => void) => T | Promise<T>,
-  hint: string | undefined = "Refreshing...",
+  prompt: (controls: {
+    refresh: () => typeof FORCE_REFRESH
+    resolve: (value: T) => void
+    signal: AbortSignal
+  }) => T | Promise<T>,
+  refreshHint?: string,
 ): Promise<T> {
   while (true) {
     let userDefinedHint: string | undefined = undefined
+
+    const abortController = new AbortController()
 
     // biome-ignore lint/suspicious/noAsyncPromiseExecutor: Wrapped in try/catch and reject(err)
     const result = await new Promise<T | typeof FORCE_REFRESH>(async (resolve, reject) => {
       try {
         const refresh = (): typeof FORCE_REFRESH => {
-          hint && setHint(hint)
+          abortController.abort("Refreshing")
+          refreshHint && setHint(refreshHint)
           setFlagValue(undefined) // Clears the actions sidebar, if any
           resolve(FORCE_REFRESH)
           return FORCE_REFRESH
         }
 
         // Start the prompt without awaiting it
-        const promise = prompt(refresh, resolve)
+        const promise = prompt({ refresh, resolve, signal: abortController.signal })
 
         // Use the chance to grab the user-defined hint
         const promptConfig = global.__currentPromptConfig
@@ -74,10 +81,15 @@ export async function refreshable<T>(
     })
 
     if (result === FORCE_REFRESH) {
-      hint && setHint(userDefinedHint ?? "")
+      refreshHint && userDefinedHint && setHint(userDefinedHint)
       continue
     }
 
     return result
   }
 }
+
+/**
+ * An alias of {@link refreshable}
+ */
+export const loop = refreshable

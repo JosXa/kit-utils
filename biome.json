@@ -19,7 +19,8 @@
       },
       "correctness": {
         "noUndeclaredVariables": "off",
-        "noConstantCondition": "off"
+        "noConstantCondition": "off",
+        "noUnusedVariables": "off"
       },
       "style": {
         "noDefaultExport": "off",
