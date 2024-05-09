@@ -1,5 +1,12 @@
 # @josxa/kit-utils
 
+## 0.4.0
+
+### Minor Changes
+
+- c879d22: Add additional spinner types and change return value to be a controller
+- 6a9bd86: Improve the error utility
+
 ## 0.3.0
 
 ### Minor Changes
