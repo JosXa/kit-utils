@@ -2,11 +2,11 @@
 // Exclude: false
 
 import "@johnlindquist/kit"
-import { loop } from "../src/refreshable"
+import { refreshable } from "../src/refreshable"
 import { SPINNER_VARIANTS, startSpinner } from "../src/spinners/spinner"
 import type { SpinnerVariant } from "../src/spinners/spinner"
 
-await loop(async ({ refresh, signal }) => {
+await refreshable(async ({ refresh, signal }) => {
   const variant: SpinnerVariant = await select(
     { placeholder: "Choose a Spinner Variant", multiple: false },
     Object.keys(SPINNER_VARIANTS),
@@ -28,15 +28,17 @@ await loop(async ({ refresh, signal }) => {
 
   spinner.message = "Working..."
 
-  for (let i = 0; i <= 20; i++) {
-    await wait(150)
-    if (signal.aborted) {
-      spinner.stop()
-      return
-    }
-    spinner.progress = i * 5
-  }
+  await wait(2000)
 
-  spinner.stop()
-  refresh()
+  // for (let i = 0; i <= 20; i++) {
+  //   await wait(150)
+  //   if (signal.aborted) {
+  //     spinner.stop()
+  //     return
+  //   }
+  //   spinner.progress = i * 5
+  // }
+  //
+  // spinner.stop()
+  // refresh()
 })

@@ -88,8 +88,3 @@ export async function refreshable<T>(
     return result
   }
 }
-
-/**
- * An alias of {@link refreshable}
- */
-export const loop = refreshable
