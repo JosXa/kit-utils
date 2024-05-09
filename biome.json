@@ -28,7 +28,10 @@
         "noParameterProperties": "off"
       },
       "suspicious": {
-        "noEmptyBlockStatements": "off"
+        "noEmptyBlockStatements": "off",
+        "noDebugger": "off",
+        "noConsoleLog": "off",
+        "noExplicitAny": "off"
       }
     }
   },
