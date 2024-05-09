@@ -777,11 +777,13 @@ __metadata:
     "@biomejs/biome": "npm:1.7.3"
     "@changesets/cli": "npm:^2.27.1"
     "@johnlindquist/kit": "npm:^2.1.16"
+    "@types/markdown-escape": "npm:^1.1.3"
     axios: "npm:^1.5.1"
+    markdown-escape: "npm:^2.0.0"
     tsup: "npm:^8.0.2"
     typescript: "npm:^5.4.5"
   peerDependencies:
-    "@johnlindquist/kit": ^2.1.16
+    "@johnlindquist/kit": ">=2"
     axios: ">=1.5.1"
   languageName: unknown
   linkType: soft
@@ -1220,6 +1222,13 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: 10c0/b12d068b021e4078f6ac4441353965769be87acf15326173e2aea9f3bf8ead41bd0ad29421df5bbeb0123ec3fc02eb0a734481d52903704a1454a1845896b9eb
+  languageName: node
+  linkType: hard
+
+"@types/markdown-escape@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "@types/markdown-escape@npm:1.1.3"
+  checksum: 10c0/fff3f902327bb0a36b06f6dbc5fafe478d917964084f87f109f2a90cd06722fa9ecf556f56efa4a78d64764b7b6590a2864a5fc0165091cf9ffceed222721162
   languageName: node
   linkType: hard
 
@@ -3848,17 +3857,17 @@ __metadata:
   linkType: hard
 
 "glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.3.7":
-  version: 10.3.12
-  resolution: "glob@npm:10.3.12"
+  version: 10.3.14
+  resolution: "glob@npm:10.3.14"
   dependencies:
     foreground-child: "npm:^3.1.0"
     jackspeak: "npm:^2.3.6"
     minimatch: "npm:^9.0.1"
     minipass: "npm:^7.0.4"
-    path-scurry: "npm:^1.10.2"
+    path-scurry: "npm:^1.11.0"
   bin:
     glob: dist/esm/bin.mjs
-  checksum: 10c0/f60cefdc1cf3f958b2bb5823e1b233727f04916d489dc4641d76914f016e6704421e06a83cbb68b0cb1cb9382298b7a88075b844ad2127fc9727ea22b18b0711
+  checksum: 10c0/19126e53b99c94dea9b3509500e22b325e24d2674523fc95b9fe710f1549ad7e091fbb0704c325c53d3a172fc21a8251acce5395c4f3efd872a2e65a376c82a1
   languageName: node
   linkType: hard
 
@@ -5055,6 +5064,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"markdown-escape@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "markdown-escape@npm:2.0.0"
+  checksum: 10c0/8dce0424e6009372938fd813e9d4e545f20b2496815d0536f68ff7dfb8c9cb0e8e0b4b99fa6a3a0469b792207cb48a9acc2ac28ce437092de6a6f27855c32167
+  languageName: node
+  linkType: hard
+
 "md5.js@npm:^1.3.4":
   version: 1.3.5
   resolution: "md5.js@npm:1.3.5"
@@ -5322,9 +5338,9 @@ __metadata:
   linkType: hard
 
 "minipass@npm:^5.0.0 || ^6.0.2 || ^7.0.0, minipass@npm:^7.0.2, minipass@npm:^7.0.3, minipass@npm:^7.0.4":
-  version: 7.1.0
-  resolution: "minipass@npm:7.1.0"
-  checksum: 10c0/6861c6ec9dc3cb99c745b287d92b2a8f409951852940205b4bb106faceb790544288622a0db7aa152f37793e2fc8f303628787883d9a679f2126605204feb97f
+  version: 7.1.1
+  resolution: "minipass@npm:7.1.1"
+  checksum: 10c0/fdccc2f99c31083f45f881fd1e6971d798e333e078ab3c8988fb818c470fbd5e935388ad9adb286397eba50baebf46ef8ff487c8d3f455a69c6f3efc327bdff9
   languageName: node
   linkType: hard
 
@@ -5835,13 +5851,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-scurry@npm:^1.10.2":
-  version: 1.10.2
-  resolution: "path-scurry@npm:1.10.2"
+"path-scurry@npm:^1.11.0":
+  version: 1.11.0
+  resolution: "path-scurry@npm:1.11.0"
   dependencies:
     lru-cache: "npm:^10.2.0"
     minipass: "npm:^5.0.0 || ^6.0.2 || ^7.0.0"
-  checksum: 10c0/d723777fbf9627f201e64656680f66ebd940957eebacf780e6cce1c2919c29c116678b2d7dbf8821b3a2caa758d125f4444005ccec886a25c8f324504e48e601
+  checksum: 10c0/a5cd5dfbc6d5bb01d06bc2eb16ccdf303d617865438a21fe15431b8ad334f23351f73259abeb7e4be56f9c68d237b26b4dba51c78b508586035dfc2b55085493
   languageName: node
   linkType: hard
 
@@ -6627,11 +6643,11 @@ __metadata:
   linkType: hard
 
 "semver@npm:^7.3.5, semver@npm:^7.5.3":
-  version: 7.6.1
-  resolution: "semver@npm:7.6.1"
+  version: 7.6.2
+  resolution: "semver@npm:7.6.2"
   bin:
     semver: bin/semver.js
-  checksum: 10c0/fd28315954ffc80204df0cb5c62355160ebf54059f5ffe386e9903162ddf687ed14004c30f6e5347fa695fc77bafa242798af8d351f1d260207f007cfbeccb82
+  checksum: 10c0/97d3441e97ace8be4b1976433d1c32658f6afaff09f143e52c593bae7eef33de19e3e369c88bd985ce1042c6f441c80c6803078d1de2a9988080b66684cbb30c
   languageName: node
   linkType: hard
 

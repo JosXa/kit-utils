@@ -11,7 +11,9 @@
     "release": "yarn run build && changeset publish",
     "typecheck": "tsc",
     "format:check": "biome check .",
-    "format:fix": "biome check . --apply-unsafe"
+    "format:fix": "biome check . --apply-unsafe",
+    "install": "npx -y yarn install",
+    "postinstall": "node -e \"const {rmSync} = require('node:fs'); rmSync('package-lock.json') \""
   },
   "devDependencies": {
     "@biomejs/biome": "^1.7.3-nightly.d74b584",
