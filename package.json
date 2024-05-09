@@ -13,6 +13,7 @@
     "watch": "tsup --watch",
     "release": "npm run build && changeset publish",
     "typecheck": "tsc",
+    "format:check": "biome check .",
     "format:fix": "biome check . --apply-unsafe"
   },
   "devDependencies": {
