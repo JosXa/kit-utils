@@ -19,7 +19,6 @@ class Cache<T> {
   private pendingDb?: {
     write: () => Promise<void>
     read: () => Promise<CacheEntries<T>>
-    // biome-ignore lint/suspicious/noExplicitAny: Type comes from kit. Not sure how to do the type gymnastics to use ReturnType<db>
     data: any
   } & CacheEntries<T>
 
@@ -179,7 +178,7 @@ export class WithCRUD<T extends string> {
   }
 
   public async run() {
-    return await refreshable(async (refresh, resolve) => {
+    return await refreshable(async ({ refresh, resolve }) => {
       const userPromptPromise = this.prompt()
 
       await this.updateCurrentState()

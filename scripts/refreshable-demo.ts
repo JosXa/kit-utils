@@ -4,8 +4,8 @@
 import "@johnlindquist/kit"
 import { refreshable } from ".."
 
-await refreshable(async (refresh) => {
-  const res = await fetch("http://www.randomnumberapi.com/api/v1.0/random?min=100&max=1000&count=5")
+await refreshable(async ({ refresh }) => {
+  const res = await fetch("https://www.randomnumberapi.com/api/v1.0/random?min=100&max=1000&count=5")
   const items = await res.json()
 
   return arg(
