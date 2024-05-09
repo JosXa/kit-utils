@@ -19,3 +19,5 @@ try {
 } catch (err) {
   await error(err, "Here's an Axios error!")
 }
+
+await error(new Error("<b>Some `text` with </b>__Markdown__ will get **escaped**!"))
