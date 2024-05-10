@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 0.7.0
+
+### Minor Changes
+
+- 38c7f21: Allow passing custom text and CSS to the spinner. Use the `name` for the current message, and the footer for the progress percentage.
+
 ## 0.6.0
 
 ### Minor Changes
