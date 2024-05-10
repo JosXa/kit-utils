@@ -15,7 +15,7 @@ await error("This is just a string", "A title")
 await error({ this: "is", an: "object" })
 
 try {
-  await get("https://some.definitely.invalid-url")
+  await get("https://httpstat.us/400")
 } catch (err) {
   await error(err, "Here's an Axios error!")
 }

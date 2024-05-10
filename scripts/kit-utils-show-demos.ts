@@ -1,9 +1,9 @@
 // Name: [kit-utils] Show or Hide Demos
 
 import "@johnlindquist/kit"
+import { readFile } from "node:fs/promises"
 import { refreshScripts } from "@johnlindquist/kit/core/db"
 import { getKenvs, getScriptFiles, setMetadata } from "@johnlindquist/kit/core/utils"
-import { readFile } from "node:fs/promises"
 
 const falseSymbol = Symbol.for("false")
 

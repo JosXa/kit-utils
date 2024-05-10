@@ -13,7 +13,13 @@ export async function error(err: unknown, title?: string): Promise<void> {
   // Determine body
   if (isAxiosError(err)) {
     if (err.response) {
-      bodyPart = `${err.response.status}: ${err.response.statusText}<br>${err.response.data}`
+      let responseData: any
+      try {
+        responseData = JSON.stringify(err.response.data)
+      } catch {
+        responseData = err.response.data
+      }
+      bodyPart = `${err.response.status}: ${err.response.statusText}<br>Response body: ${responseData}`
     }
   }
 
