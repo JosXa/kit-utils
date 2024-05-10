@@ -1,10 +1,4 @@
-import "@johnlindquist/kit"
-import type { PromptConfig } from "@johnlindquist/kit"
-
-declare global {
-  // noinspection ES6ConvertVarToLetConst,JSUnusedGlobalSymbols
-  var __currentPromptConfig: PromptConfig
-}
+import '@johnlindquist/kit'
 
 export const FORCE_REFRESH: unique symbol = Symbol.for("force-refresh")
 
@@ -69,9 +63,7 @@ export async function refreshable<T>(
         // Start the prompt without awaiting it
         const promise = prompt({ refresh, resolve, signal: abortController.signal })
 
-        // Use the chance to grab the user-defined hint
-        const promptConfig = global.__currentPromptConfig
-        userDefinedHint = promptConfig.hint
+        userDefinedHint = __currentPromptConfig.hint
 
         // Finally await the user's prompt
         resolve(await promise)

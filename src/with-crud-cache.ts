@@ -1,15 +1,10 @@
 // Name: With CRUD Tests
 
-import "@johnlindquist/kit"
-import type { Action, Choice, Choices, Panel, PromptConfig } from "@johnlindquist/kit"
-import slugify from "slugify"
-import { typedObjectValues } from "./helpers/typed-stdlib"
-import { refreshable } from "./refreshable"
-
-declare global {
-  // noinspection ES6ConvertVarToLetConst,JSUnusedGlobalSymbols
-  var __currentPromptConfig: PromptConfig
-}
+import '@johnlindquist/kit'
+import type { Action, Choice, Choices, Panel } from '@johnlindquist/kit'
+import slugify from 'slugify'
+import { typedObjectValues } from './helpers/typed-stdlib'
+import { refreshable } from './refreshable'
 
 type CacheEntries<T> = {
   items: { [key: string]: { choice: NormalizedChoice<T>; state: "added" } | { state: "removed" } }
@@ -148,12 +143,10 @@ export class WithCRUD<T extends string> {
   }
 
   private async updateCurrentState() {
-    const currentConfig = global.__currentPromptConfig as PromptConfig
+    const { name, placeholder } = __currentPromptConfig
 
-    const { name, placeholder } = currentConfig
-
-    this.predefinedActions = this.normalizeActions(currentConfig.actions)
-    this.predefinedChoices = this.normalizeChoices(currentConfig.choices)
+    this.predefinedActions = this.normalizeActions(__currentPromptConfig.actions)
+    this.predefinedChoices = this.normalizeChoices(__currentPromptConfig.choices)
     // this.name = currentConfig.name
     // this.placeholder = currentConfig.
 
