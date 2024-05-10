@@ -16,13 +16,12 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
-defaults:
-  run:
-    working-directory: docs
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: host
     steps:
       - name: Checkout
         uses: actions/checkout@v4
