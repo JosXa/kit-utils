@@ -14,7 +14,8 @@
     "release": "npm run build && changeset publish",
     "typecheck": "tsc",
     "format:check": "biome check .",
-    "format:fix": "biome check . --apply-unsafe"
+    "format:fix": "biome check . --apply-unsafe",
+    "docs": "cd docs && yarn docs:dev"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.7.3-nightly.d74b584",

@@ -4,15 +4,15 @@ layout: home
 
 hero:
   name: "kit-utils"
-  text: "Script Kit utilities and other goodies"
-  tagline: My great project tagline
+  text: "Script Kit Prompt Utilities and Other Goodies"
+  tagline: Essential tools to simplify your Kit scripts  
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Getting Started
+      link: /getting-started
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: API Reference
+      link: /api-reference
 
 features:
   - title: Feature A
