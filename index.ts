@@ -6,12 +6,11 @@ export { error } from "./src/error"
 export { startSpinner, SPINNER_VARIANTS } from "./src/spinners/spinner"
 export type { SpinnerVariant } from "./src/spinners/spinner"
 
-import '@johnlindquist/kit'
+import "@johnlindquist/kit"
 
 // noinspection ES6ConvertVarToLetConst
 declare global {
-  var ctrl: "cmd" | "ctrl";
+  var ctrl: "cmd" | "ctrl"
 }
 
-
-global.ctrl = cmd as "cmd" | "ctrl";
+global.ctrl = cmd as "cmd" | "ctrl"

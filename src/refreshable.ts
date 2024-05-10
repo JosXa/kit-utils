@@ -1,4 +1,4 @@
-import '@johnlindquist/kit'
+import "@johnlindquist/kit"
 
 export const FORCE_REFRESH: unique symbol = Symbol.for("force-refresh")
 

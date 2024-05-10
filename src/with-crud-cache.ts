@@ -1,10 +1,10 @@
 // Name: With CRUD Tests
 
-import '@johnlindquist/kit'
-import type { Action, Choice, Choices, Panel } from '@johnlindquist/kit'
-import slugify from 'slugify'
-import { typedObjectValues } from './helpers/typed-stdlib'
-import { refreshable } from './refreshable'
+import "@johnlindquist/kit"
+import type { Action, Choice, Choices, Panel } from "@johnlindquist/kit"
+import slugify from "slugify"
+import { typedObjectValues } from "./helpers/typed-stdlib"
+import { refreshable } from "./refreshable"
 
 type CacheEntries<T> = {
   items: { [key: string]: { choice: NormalizedChoice<T>; state: "added" } | { state: "removed" } }

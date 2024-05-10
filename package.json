@@ -17,7 +17,7 @@
     "format:fix": "biome check . --apply-unsafe"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.7.3",
+    "@biomejs/biome": "^1.7.3-nightly.d74b584",
     "@changesets/cli": "^2.27.1",
     "@johnlindquist/kit": "^2.1.16",
     "@types/markdown-escape": "^1.1.3",

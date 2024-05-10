@@ -22,13 +22,11 @@ await refreshable(async ({ refresh, signal }) => {
         return preventSubmit
       },
       width: 400,
-      
     },
   )
 
   spinner.message = "Preparing..."
 
-  
   for (let i = 0; i <= 20; i++) {
     await wait(150)
     if (signal.aborted) {
@@ -38,7 +36,7 @@ await refreshable(async ({ refresh, signal }) => {
     spinner.progress = i * 5
 
     if (i % 5 === 0) {
-      spinner.message = `Working on step ${(i / 5) + 1} / 4`
+      spinner.message = `Working on step ${i / 5 + 1} / 4`
     }
   }
 

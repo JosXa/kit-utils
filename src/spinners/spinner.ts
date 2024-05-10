@@ -15,7 +15,7 @@ type SpinnerOptions<T extends SpinnerVariant> = {
   initialMessage?: string
 } & Parameters<(typeof SPINNER_VARIANTS)[T]>[0]
 
-type DivOptions = Omit<DivConfig, 'html'> & {html?: string}
+type DivOptions = Omit<DivConfig, "html"> & { html?: string }
 
 type Percent = number
 
@@ -30,7 +30,7 @@ export function startSpinner<T extends SpinnerVariant>(
   spinnerOptions: SpinnerOptions<T> = {},
   divOptions: DivOptions = {},
 ): SpinnerControls {
-  const {html: userHtml, css: userCSS, ...userDivOptions} = divOptions;
+  const { html: userHtml, css: userCSS, ...userDivOptions } = divOptions
 
   const { position = "center", initialMessage, ...variantOptions } = spinnerOptions
 
@@ -57,7 +57,7 @@ export function startSpinner<T extends SpinnerVariant>(
       elements.push(userHtml)
     }
 
-    return `<div class="container">${elements.join('\n')}</div>`
+    return `<div class="container">${elements.join("\n")}</div>`
   }
 
   const divArgs: DivConfig = {
@@ -83,7 +83,7 @@ slot>div:has(.truncate) {
   justify-content: center !important;
 }
 
-${userCSS ?? ''}`,
+${userCSS ?? ""}`,
     ignoreBlur: true,
     ...userDivOptions,
   }
