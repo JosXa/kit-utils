@@ -17,15 +17,16 @@
     "docs:generate": "tsx generate-ts-docs.mts > API.md"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.1",
-    "tsup": "^8.0.2",
-    "typescript": "^5.4.5",
-    "@johnlindquist/kit": "^2.1.16",
-    "ts-readme": "^1.1.3",
-    "generate-ts-docs": "0.0.13",
-    "tsx": "^4.9.3",
     "@biomejs/biome": "1.7.3",
-    "axios": "^1.5.1"
+    "@changesets/cli": "^2.27.1",
+    "@johnlindquist/kit": "^2.1.16",
+    "@types/node": "^20.12.11",
+    "axios": "^1.5.1",
+    "generate-ts-docs": "0.0.13",
+    "ts-readme": "^1.1.3",
+    "tsup": "^8.0.2",
+    "tsx": "^4.9.3",
+    "typescript": "^5.4.5"
   },
   "peerDependencies": {
     "@johnlindquist/kit": "^2.1.16",
