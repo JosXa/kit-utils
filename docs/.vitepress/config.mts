@@ -3,6 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "@josxa/kit-utils",
+  base: "/kit-utils/",
   description: "Script Kit Prompt Utilities and Other Goodies",
   srcDir: 'src',
   themeConfig: {
