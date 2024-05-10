@@ -1052,6 +1052,7 @@ __metadata:
   resolution: "docs@workspace:."
   dependencies:
     vitepress: "npm:^1.1.4"
+    vue: "npm:^3.4.27"
   languageName: unknown
   linkType: soft
 
@@ -2046,7 +2047,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue@npm:^3.4.25":
+"vue@npm:^3.4.25, vue@npm:^3.4.27":
   version: 3.4.27
   resolution: "vue@npm:3.4.27"
   dependencies:
