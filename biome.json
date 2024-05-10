@@ -34,7 +34,8 @@
         "noConsoleLog": "off",
         "noExplicitAny": "off"
       }
-    }
+    },
+    "ignore": [".cache", ".history", ".npm-cache", "node_modules", ".vscode", ".vitepress", ".pnp.*"]
   },
   "formatter": {
     "enabled": true,
@@ -43,7 +44,7 @@
     "indentWidth": 2,
     "lineWidth": 120,
     "lineEnding": "lf",
-    "ignore": [".cache", ".history", ".npm-cache", "node_modules", ".vscode"]
+    "ignore": [".cache", ".history", ".npm-cache", "node_modules", ".vscode", ".vitepress", ".pnp.*"]
   },
   "javascript": {
     "formatter": {
