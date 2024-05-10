@@ -2,6 +2,7 @@
   "name": "docs",
   "packageManager": "yarn@4.2.2",
   "devDependencies": {
+    "@vue/server-renderer": "^3.4.27",
     "vitepress": "^1.1.4",
     "vue": "^3.4.27"
   },
