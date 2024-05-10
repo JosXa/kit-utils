@@ -16,7 +16,7 @@
     "removeComments": false,
     "useUnknownInCatchVariables": true,
     "noEmit": true,
-    "types": ["src/@types"]
+    "typeRoots": ["src/@types"]
   },
   "include": ["index.ts", "src/**/*", "scripts/**/*"],
   "exclude": ["node_modules"]
