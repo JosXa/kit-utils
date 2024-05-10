@@ -30,6 +30,7 @@ jobs:
           fetch-depth: 0 # Not needed if lastUpdated is not enabled
       - name: Setup Node
         uses: actions/setup-node@v4
+        working-directory: docs
         with:
           node-version: 20
           cache: yarn
