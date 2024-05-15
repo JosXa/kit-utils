@@ -22,10 +22,9 @@ can reference in your own scripts.
 
 ### Installing as a kenv
 
-1. Open Script Kit
-2. `Manage Kenvs` -> `Clone repo of scripts`
-3. Enter Repo URL: https://github.com/JosXa/kit-utils (using SSH probably won't work)
-4. Leave the other options as default and accept the risks.
+1. Direct link: https://scriptkit.com/api/kenv?repo=JosXa/kit-utils
+2. Accept the risks and install
+3. Import utils directly from the kenv, usually `import {...} from '../kenvs/kit-utils'`
 
 ### Using as an NPM library
 
