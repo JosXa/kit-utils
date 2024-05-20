@@ -41,10 +41,5 @@
     "name": "Joscha Götzer (@JosXa)",
     "email": "info@josxa.dev",
     "url": "https://github.com/JosXa"
-  },
-  "engineStrict": true,
-  "engines": {
-    "node": "20.11.1",
-    "npm": "10.2.4"
   }
 }
