@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 0.8.0
+
+### Minor Changes
+
+- 06e1572: Add getAllScriptPaths utility
+
 ## 0.7.0
 
 ### Minor Changes
