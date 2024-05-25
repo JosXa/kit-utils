@@ -1,5 +1,16 @@
 # @josxa/kit-utils
 
+## 0.9.0
+
+### Minor Changes
+
+- f99cac6: - Allow passing divConfig to error
+  - Add promptConfirm utility
+
+### Patch Changes
+
+- 7783c9e: Remove engine section
+
 ## 0.8.0
 
 ### Minor Changes
