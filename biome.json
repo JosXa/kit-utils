@@ -26,7 +26,9 @@
         "noDefaultExport": "off",
         "noParameterAssign": "off",
         "useNamingConvention": "off",
-        "noParameterProperties": "off"
+        "noParameterProperties": "off",
+        "noNonNullAssertion": "off",
+        "useTemplate": "off"
       },
       "suspicious": {
         "noEmptyBlockStatements": "off",
@@ -43,7 +45,6 @@
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 120,
-    "lineEnding": "lf",
     "ignore": [".cache", ".history", ".npm-cache", "node_modules", ".vscode", ".vitepress", ".pnp.*"]
   },
   "javascript": {
