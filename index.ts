@@ -7,6 +7,8 @@ export { withCRUDCache } from "./src/with-crud-cache"
 export { error } from "./src/error"
 export { startSpinner, SPINNER_VARIANTS } from "./src/spinners/spinner"
 export type { SpinnerVariant } from "./src/spinners/spinner"
+import promptConfirm from "./src/promptConfirm"
+export { promptConfirm }
 
 import "@johnlindquist/kit"
 

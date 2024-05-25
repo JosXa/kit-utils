@@ -1,9 +1,10 @@
 import "@johnlindquist/kit"
+import type { DivConfig } from "@johnlindquist/kit/types/kitapp"
 import { isAxiosError } from "axios"
 import mdEscape from "markdown-escape"
 import isRealError from "./helpers/isError"
 
-export async function error(err: unknown, title?: string): Promise<void> {
+export async function error(err: unknown, title?: string, divConfig: Omit<DivConfig, "html"> = {}): Promise<void> {
   const isError = isRealError(err)
 
   const titlePart = title ?? (isError ? `${err.name}: ${err.message}` : "Something bad happened")
@@ -38,11 +39,9 @@ export async function error(err: unknown, title?: string): Promise<void> {
         const [_, ...stackParts] = err.stack.split("\n")
         stack = stackParts.join("\n")
       }
-      // biome-ignore lint/style/useTemplate: Makes no sense
       stackPart = "```\n" + mdEscape(stack) + "\n```"
     }
   } else if (err) {
-    // biome-ignore lint/style/useTemplate: Makes no sense
     stackPart = "```\n" + mdEscape(typeof err === "object" ? JSON.stringify(err) : err.toString()) + "\n```"
   }
 
@@ -51,5 +50,5 @@ export async function error(err: unknown, title?: string): Promise<void> {
   bodyPart && msg.push(`${mdEscape(bodyPart)}`)
   stackPart && msg.push(stackPart)
 
-  await div({ html: md(msg.join("\n")) })
+  await div({ html: md(msg.join("\n")), ...divConfig })
 }
