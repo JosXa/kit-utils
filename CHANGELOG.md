@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 0.10.1
+
+### Patch Changes
+
+- c6f4f1f: Set initial message correctly
+
 ## 0.10.0
 
 ### Minor Changes
