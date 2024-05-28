@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 0.11.0
+
+### Minor Changes
+
+- 0a6a290: Separate hints and placeholder in promptConfirm
+
 ## 0.10.1
 
 ### Patch Changes
