@@ -6,47 +6,56 @@ export default async function promptConfirm(
   style: "yesno" | "confirm" = "confirm",
   promptConfig: Omit<PromptConfig, "placeholder"> = {},
 ): Promise<boolean> {
+  const { choices, placeholder } = getPropsForStyle(style)
+
   const choice = await select(
     {
-      placeholder: message,
+      placeholder,
       hint: message,
       panel: message,
       multiple: false,
       strict: true,
       ...promptConfig,
     },
-    getChoices(style),
+    choices,
   )
+
   return choice === "y"
 }
 
-function getChoices(style: "yesno" | "confirm"): Choice<"y" | "n">[] {
+function getPropsForStyle(style: "yesno" | "confirm"): { choices: Choice<"y" | "n">[]; placeholder: string } {
   switch (style) {
     case "yesno":
-      return [
-        {
-          name: "(Y)es",
-          value: "y",
-          trigger: "y",
-        },
-        {
-          name: "(N)o",
-          value: "n",
-          trigger: "n",
-        },
-      ]
+      return {
+        placeholder: "Please type 'y' for yes or 'n' for no",
+        choices: [
+          {
+            name: "(Y)es",
+            value: "y",
+            trigger: "y",
+          },
+          {
+            name: "(N)o",
+            value: "n",
+            trigger: "n",
+          },
+        ],
+      }
     case "confirm":
-      return [
-        {
-          name: "(C)onfirm",
-          value: "y",
-          trigger: "c",
-        },
-        {
-          name: "(A)bort",
-          value: "n",
-          trigger: "a",
-        },
-      ]
+      return {
+        placeholder: "Please type 'c' to confirm",
+        choices: [
+          {
+            name: "(C)onfirm",
+            value: "y",
+            trigger: "c",
+          },
+          {
+            name: "(A)bort",
+            value: "n",
+            trigger: "a",
+          },
+        ],
+      }
   }
 }
