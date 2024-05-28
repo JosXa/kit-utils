@@ -34,6 +34,8 @@ export function startSpinner<T extends SpinnerVariant>(
 
   const { position = "center", initialMessage, ...variantOptions } = spinnerOptions
 
+  initialMessage && setName(initialMessage)
+
   let message = initialMessage
   let progress: null | Percent = null
 
