@@ -41,9 +41,12 @@ export async function refreshable<T>(
     refresh: () => typeof FORCE_REFRESH
     resolve: (value: T) => void
     signal: AbortSignal
+    refreshCount: number
   }) => T | Promise<T>,
   refreshHint?: string,
 ): Promise<T> {
+  let refreshCount = 0
+
   while (true) {
     let userDefinedHint: string | undefined = undefined
 
@@ -55,13 +58,14 @@ export async function refreshable<T>(
         const refresh = (): typeof FORCE_REFRESH => {
           abortController.abort("Refreshing")
           refreshHint && setHint(refreshHint)
+          refreshCount++
           setFlagValue(undefined) // Clears the actions sidebar, if any
           resolve(FORCE_REFRESH)
           return FORCE_REFRESH
         }
 
         // Start the prompt without awaiting it
-        const promise = prompt({ refresh, resolve, signal: abortController.signal })
+        const promise = prompt({ refresh, resolve, signal: abortController.signal, refreshCount })
 
         userDefinedHint = __currentPromptConfig.hint
 
