@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 0.10.0
+
+### Minor Changes
+
+- 8395a2c: Add ability to count the number of refreshes in refreshable
+
 ## 0.9.0
 
 ### Minor Changes
