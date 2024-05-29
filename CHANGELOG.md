@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 1.0.1
+
+### Patch Changes
+
+- 3d13ac1: Export the RefreshableControls type
+
 ## 1.0.0
 
 ### Major Changes
