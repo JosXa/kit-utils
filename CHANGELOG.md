@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 1.0.0
+
+### Major Changes
+
+- e953df1: Breaking: Changed error to showError and adjusted parameters
+
 ## 0.11.0
 
 ### Minor Changes
