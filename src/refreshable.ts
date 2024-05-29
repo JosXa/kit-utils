@@ -2,6 +2,13 @@ import "@johnlindquist/kit"
 
 export const FORCE_REFRESH: unique symbol = Symbol.for("force-refresh")
 
+export type RefreshableControls<T> = {
+  refresh: () => typeof FORCE_REFRESH
+  resolve: (value: T) => void
+  signal: AbortSignal
+  refreshCount: number
+}
+
 /**
  * Repeats the given {@link prompt} callback when its `refresh` argument is called.
  *
@@ -37,12 +44,7 @@ export const FORCE_REFRESH: unique symbol = Symbol.for("force-refresh")
  * @param refreshHint The hint to show while refreshing
  */
 export async function refreshable<T>(
-  prompt: (controls: {
-    refresh: () => typeof FORCE_REFRESH
-    resolve: (value: T) => void
-    signal: AbortSignal
-    refreshCount: number
-  }) => T | Promise<T>,
+  prompt: (controls: RefreshableControls<T>) => T | Promise<T>,
   refreshHint?: string,
 ): Promise<T> {
   let refreshCount = 0

@@ -1,6 +1,6 @@
 // biome-ignore lint/performance/noBarrelFile: Library entrypoint
 export { crudArg } from "./src/crud-arg"
-export { refreshable } from "./src/refreshable"
+export { refreshable, type RefreshableControls } from "./src/refreshable"
 import getAllScriptPaths from "./src/getAllScriptPaths"
 export { getAllScriptPaths }
 export { withCRUDCache } from "./src/with-crud-cache"
