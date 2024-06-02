@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 1.2.0
+
+### Minor Changes
+
+- 8944cbc: Don't bundle kit
+
 ## 1.1.0
 
 ### Minor Changes
