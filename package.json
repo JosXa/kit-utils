@@ -27,9 +27,6 @@
     "tsup": "^8.0.2",
     "typescript": "^5.4.5"
   },
-  "dependencies": {
-    "markdown-escape": "^2.0.0"
-  },
   "peerDependencies": {
     "axios": ">=1.5.1"
   },
