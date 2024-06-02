@@ -44,7 +44,7 @@ export type RefreshableControls<T> = {
  * @param refreshHint The hint to show while refreshing
  */
 export async function refreshable<T>(
-  prompt: (controls: RefreshableControls<T>) => T | Promise<T>,
+  prompt: (controls: RefreshableControls<T>) => Promise<T | typeof FORCE_REFRESH>,
   refreshHint?: string,
 ): Promise<T> {
   let refreshCount = 0
