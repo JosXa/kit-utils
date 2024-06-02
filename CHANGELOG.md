@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 1.2.3
+
+### Patch Changes
+
+- 3459e78: Improve typings of refreshable
+
 ## 1.2.2
 
 ### Patch Changes
