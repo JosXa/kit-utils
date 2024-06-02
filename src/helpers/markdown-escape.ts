@@ -12,7 +12,7 @@ const replacements = [
   [/`/g, "\\`", "codeblocks"],
 ] as const
 
-export const markdownEscape = (string: string, skips: (typeof replacements)[number][2]): string => {
+export const markdownEscape = (string: string, skips: (typeof replacements)[number][2][]): string => {
   skips = skips || []
   return replacements.reduce((string, replacement) => {
     const name = replacement[2]

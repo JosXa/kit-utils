@@ -2,8 +2,8 @@
 
 import "@johnlindquist/kit"
 import type { DivConfig } from "@johnlindquist/kit/types/kitapp"
-import markdownEscape from "markdown-escape"
 import isRealError from "./helpers/isError"
+import { markdownEscape } from "./helpers/markdown-escape"
 
 const mdEscape = (val?: any): string => {
   if (val === undefined || val === null) {
