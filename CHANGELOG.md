@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 1.1.0
+
+### Minor Changes
+
+- b6e0b70: Update deps
+
 ## 1.0.2
 
 ### Patch Changes
