@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 1.2.1
+
+### Patch Changes
+
+- 03a1552: Export FORCE_REFRESH type
+
 ## 1.2.0
 
 ### Minor Changes
