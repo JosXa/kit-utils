@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 1.0.2
+
+### Patch Changes
+
+- 8ae2525: Remove kit from peer deps
+
 ## 1.0.1
 
 ### Patch Changes
