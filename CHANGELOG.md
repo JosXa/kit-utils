@@ -1,5 +1,11 @@
 # @josxa/kit-utils
 
+## 1.2.2
+
+### Patch Changes
+
+- 63bad02: FORCE_REFRESH is a symbol, export it as such
+
 ## 1.2.1
 
 ### Patch Changes
