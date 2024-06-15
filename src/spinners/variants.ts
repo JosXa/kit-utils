@@ -7,7 +7,9 @@ export type SpinnerVariant<TProps extends object> = (args?: TProps) => {
 
 const DEFAULT_SIZE = 50
 
-export const dots: SpinnerVariant<{ color?: string }> = ({ color = "#fff" } = {}) => ({
+export const dots: SpinnerVariant<{ color?: string }> = ({
+  color = "rgba(var(--color-primary), var(--tw-text-opacity))",
+} = {}) => ({
   html: `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`,
   css: `
 .lds-ellipsis {
@@ -76,7 +78,7 @@ export const dots: SpinnerVariant<{ color?: string }> = ({ color = "#fff" } = {}
 
 export const spaceX: SpinnerVariant<{ colorX?: string; colorY?: string; size?: number }> = ({
   colorX = "#fff",
-  colorY = "#FF3D00",
+  colorY = "rgba(var(--color-primary), var(--tw-text-opacity))",
   size = DEFAULT_SIZE,
 } = {}) => ({
   html: `<div class="loader"></div>`,
@@ -156,7 +158,7 @@ export const spaceX: SpinnerVariant<{ colorX?: string; colorY?: string; size?: n
 })
 
 export const circle: SpinnerVariant<{ color?: string; dotSize?: number; size?: number }> = ({
-  color = "#fff",
+  color = "rgba(var(--color-primary), var(--tw-text-opacity))",
   size = DEFAULT_SIZE,
 } = {}) => ({
   html: `<div class="loader"></div>`,
