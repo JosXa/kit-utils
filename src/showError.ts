@@ -31,14 +31,14 @@ const buildErrorMarkdown = (err: Error | unknown, title?: string) => {
   const isError = isRealError(err)
 
   const titlePart = title ?? (isError ? `${err.name}: ${err.message}` : "Something bad happened")
-  let bodyPart: string | undefined = undefined
-  let stackPart: string | undefined = undefined
+  let bodyPart: string | undefined
+  let stackPart: string | undefined
 
   // Check if error contains an HTTP response (Axios / Fetch)
   if (err instanceof Object && "response" in err) {
     let responseData: any
-    let status: undefined | unknown = undefined
-    let statusText: undefined | unknown = undefined
+    let status: undefined | unknown
+    let statusText: undefined | unknown
 
     if (err.response instanceof Object) {
       status = "status" in err.response ? err.response.status : undefined

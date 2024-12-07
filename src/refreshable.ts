@@ -50,7 +50,7 @@ export async function refreshable<T>(
   let refreshCount = 0
 
   while (true) {
-    let userDefinedHint: string | undefined = undefined
+    let userDefinedHint: string | undefined
 
     const abortController = new AbortController()
 
