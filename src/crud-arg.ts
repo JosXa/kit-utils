@@ -57,7 +57,7 @@ export async function crudArg<T extends string | { name: string }>(
       return x.name === item.name
     })
     if (toRemoveIdx === -1) {
-      throw Error("Could not find this item")
+      throw new Error("Could not find this item")
     }
     entries.splice(toRemoveIdx, 1)
     await write()
@@ -87,7 +87,7 @@ export async function crudArg<T extends string | { name: string }>(
       return x.name === item.name
     })
     if (toEditIdx === -1) {
-      throw Error("Could not find this item")
+      throw new Error("Could not find this item")
     }
 
     await resetSidebar()

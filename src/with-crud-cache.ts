@@ -19,7 +19,7 @@ class Cache<T> {
 
   private get db() {
     if (!this.pendingDb) {
-      throw Error("Must be initialized before use")
+      throw new Error("Must be initialized before use")
     }
     return this.pendingDb
   }
@@ -81,7 +81,7 @@ class Cache<T> {
     const found = this.db.items[this._keyOf(updatedChoice)]
 
     if (found && found.state === "removed") {
-      throw Error(`Item ${updatedChoice.name} is removed and cannot be renamed!`)
+      throw new Error(`Item ${updatedChoice.name} is removed and cannot be renamed!`)
     }
 
     this.db.items[oldName] = { state: "removed" }
@@ -137,7 +137,7 @@ export class WithCRUD<T extends string> {
 
   private get cache() {
     if (!this.db) {
-      throw Error("DB is not initialized")
+      throw new Error("DB is not initialized")
     }
     return this.db
   }

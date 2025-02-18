@@ -51,7 +51,7 @@
     "formatter": {
       "enabled": true,
       "quoteStyle": "double",
-      "trailingComma": "all",
+      "trailingCommas": "all",
       "semicolons": "asNeeded",
       "bracketSpacing": true,
       "arrowParentheses": "always"
